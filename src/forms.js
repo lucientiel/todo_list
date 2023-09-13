@@ -1,6 +1,8 @@
 const genFormInput = (tag, type, id, name) => {
     const newElem = document.createElement(tag);
-    newElem.setAttribute('type', type);
+    if (tag = 'input') {
+            newElem.setAttribute('type', type);
+    }
     newElem.setAttribute('id', id);
     newElem.setAttribute('name', name);
     return newElem;
@@ -27,7 +29,7 @@ const genTodoItemForm = () => {
     createItemForm.id = 'todo_item_form'
 
     const titleInput = genFormInput('input', 'text', 'todo_item_title', 'todo_item_title');
-    const descInput = genFormInput('input', 'text', 'todo_item_desc', 'todo_item__desc');
+    const descInput = genFormInput('textarea', '', 'todo_item_desc', 'todo_item_desc');
     const dueDateInput = genFormInput('input', 'date', 'todo_item_duedate', 'todo_item_duedate');
     const priorityInput_low = genFormInput('input', 'radio', 'todo_item_priority', 'todo_item_priority');
     priorityInput_low.setAttribute('value', 'Low');

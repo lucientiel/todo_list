@@ -42,20 +42,40 @@ const formSubmitClick = () => {
         );
         toDoList.push(newTodoItem);
         console.log(toDoList);
+        displayitemsInList();
     })
     
 }
 
 const genitemDisplay = (todo_item) => {
-    const display = document.createElement('div');
-    display.innerHTML = `
-    `;
+    const todoitem_displayBox = document.createElement('div');
+
+    const displayTitle = document.createElement('div');
+    displayTitle.innerText = todo_item.getTitle();
+
+    const displayDate = document.createElement('div');
+    displayDate.innerText = todo_item.getDueDate();
+
+    const displayPriority = document.createElement('div');
+    displayPriority.innerText = todo_item.getPriority();
+
+    const displayDesc = document.createElement('p');
+    displayDesc.innerText = todo_item.getDesc();
+
+    todoitem_displayBox.append(
+        displayTitle,
+        displayDate,
+        displayPriority,
+        displayDesc
+    )
+
+    return todoitem_displayBox;
 }
 const displayitemsInList = () => {
-    const contentdiv = getElementById('content');
+    const contentdiv = document.getElementById('content');
 
     for (let i = 0; i < toDoList.length; i++) {
-        //do something
+        contentdiv.appendChild(genitemDisplay(toDoList[i]));
     }
 }
 
