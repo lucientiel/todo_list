@@ -20,10 +20,10 @@ const genlineBreak = () => {
 }
 
 const genTodoItemForm = () => {
-    const contentDiv = document.getElementById('content');
+    const contentDiv = document.getElementById('sidebar_elem');
 
     const formContainer = document.createElement('div');
-    formContainer.id = 'form_container';
+    formContainer.id = 'todo_form_container';
 
     const createItemForm = document.createElement('form');
     createItemForm.id = 'todo_item_form'
@@ -76,4 +76,4 @@ const genTodoItemForm = () => {
     contentDiv.append(formContainer);
 }
 
-export { genTodoItemForm }
+export { genTodoItemForm, genFormInput, genLabel }

@@ -49,6 +49,7 @@ const formSubmitClick = () => {
 
 const genitemDisplay = (todo_item) => {
     const todoitem_displayBox = document.createElement('div');
+    todoitem_displayBox.id = 'todo_item_displaybox'
 
     const displayTitle = document.createElement('div');
     displayTitle.innerText = todo_item.getTitle();
@@ -72,7 +73,7 @@ const genitemDisplay = (todo_item) => {
     return todoitem_displayBox;
 }
 const displayitemsInList = () => {
-    const contentdiv = document.getElementById('content');
+    const contentdiv = document.getElementById('listing_elem');
 
     for (let i = 0; i < toDoList.length; i++) {
         contentdiv.appendChild(genitemDisplay(toDoList[i]));
