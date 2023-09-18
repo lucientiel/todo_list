@@ -1,4 +1,10 @@
-let toDoList = []
+import { projectListingObject } from "./projectItems";
+
+let currProjectDirectory;
+
+const setCurrProjectDirectoryVal = (someValue) => {
+    currProjectDirectory = someValue;
+}
 
 const todoItem = (title, description, duedate, priority) => {
     let _title = title;
@@ -15,7 +21,7 @@ const todoItem = (title, description, duedate, priority) => {
 }
 
 const insertItemToList = (todo_item) => {
-    toDoList.push(todo_item);
+    projectListingObject[currProjectDirectory].push(todo_item);
 }
 
 
@@ -40,8 +46,8 @@ const formSubmitClick = () => {
             formVals.get('todo_item_duedate'),
             formVals.get('todo_item_priority')
         );
-        toDoList.push(newTodoItem);
-        console.log(toDoList);
+        insertItemToList(newTodoItem);
+        console.log(projectListingObject[currProjectDirectory]);
         displayitemsInList();
     })
     
@@ -72,14 +78,25 @@ const genitemDisplay = (todo_item) => {
 
     return todoitem_displayBox;
 }
+
+const clearAllItemInDisplay = () => {
+    const contentdiv = document.getElementById('listing_elem');
+    while (contentdiv.firstChild) {
+        contentdiv.removeChild(contentdiv.lastChild);
+    }
+}
 const displayitemsInList = () => {
     const contentdiv = document.getElementById('listing_elem');
-
-    for (let i = 0; i < toDoList.length; i++) {
-        contentdiv.appendChild(genitemDisplay(toDoList[i]));
+    clearAllItemInDisplay();
+    for (let i = 0; i < (projectListingObject[currProjectDirectory]).length; i++) {
+        const currTodoItem = (projectListingObject[currProjectDirectory])[i]
+        contentdiv.appendChild(genitemDisplay(currTodoItem));
     }
+    console.log('display items in current project list/directory: ', (projectListingObject[currProjectDirectory]));
 }
 
 export {
-    formSubmitClick
+    formSubmitClick,
+    currProjectDirectory, setCurrProjectDirectoryVal,
+    displayitemsInList
 }

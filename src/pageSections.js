@@ -18,10 +18,14 @@ const listingSection  = () => {
     const listingContainer = document.createElement('div');
     listingContainer.id = 'listing_container';
 
+    const listingHead = document.createElement('div');
+    listingHead.id = 'listing_head';
+    listingHead.innerText = 'Please select a project directory!'
+
     const listingElem = document.createElement('div');
     listingElem.id = 'listing_elem';
 
-    listingContainer.appendChild(listingElem);
+    listingContainer.append(listingHead, listingElem);
     contentDiv.appendChild(listingContainer);
 }
 

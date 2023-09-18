@@ -1,8 +1,9 @@
+import { currProjectDirectory, setCurrProjectDirectoryVal, displayitemsInList } from "./todoItems";
 const projectListingObject = {
-    'misc' : []
+    'project_1' : []
 }
 
-const genProjectClick = () => {
+const genProjectClick = () => { // create a new project directory, add it to the project listing object and call addtoProjectNavList to display on page navlist
     const projectNameForm = document.getElementById('project_name_form');
     projectNameForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -13,31 +14,51 @@ const genProjectClick = () => {
     })
 }
 
-const genNavListItem = (idName, projectName) => {
+const genNavListItem = (idName, projectName) => { //gen nav list elem for project
     const listItem = document.createElement('li');
     listItem.id = idName;
     listItem.innerText = projectName;
     return listItem;
 }
 
-const projectNavList = () => {
+const projectNavListSetup = () => { // initialize default project nav list with default items 
     const sideBar = document.getElementById('sidebar_elem');
 
     const navList = document.createElement('ul');
     navList.id = 'project_name_navlist';
 
     //the defaults that will always be there on the nav bar
-    const allToDos = genNavListItem('all_todos', 'All');
-    const upcomingToDos = genNavListItem('upcoming_todos', 'Upcoming')
-
-    navList.append(allToDos, upcomingToDos);
-
+    for (let key in projectListingObject) {
+        const projectNavItem = genNavListItem(key, key);
+        navList.appendChild(projectNavItem);
+        // genCurrDirectoryNavClick(key);
+        // addtoProjectNavList(key, key);
+    }
     sideBar.append(navList);
+
+    for (let key in projectListingObject) { // only when the navlist is appended to the sidebar would the navlist become readable, when it is initialized its basically in purgatory
+        genCurrDirectoryNavClick(key);
+    }
 }
 
-const addtoProjectNavList = (idName, projectName) => {
+const addtoProjectNavList = (idName, projectName) => { // add individual submitted project directory to display on navlist
     const navList = document.getElementById('project_name_navlist');
-    navList.append(genNavListItem(idName, projectName));
-}
 
-export { genProjectClick, projectNavList }
+    navList.append(genNavListItem(idName, projectName));
+    genCurrDirectoryNavClick(idName);
+};
+
+const genCurrDirectoryNavClick = (projectId) => {
+    const currNavItem = document.getElementById(projectId);
+
+    currNavItem.addEventListener('click', () => {
+        // currProjectDirectory = projectId;
+        setCurrProjectDirectoryVal(projectId);
+        const listingSectHead = document.getElementById('listing_head');
+        listingSectHead.innerText = projectId;
+        displayitemsInList();
+        console.log('display all project directory and item contents',projectListingObject)
+    })
+}
+//projectListingObject is currently exported to todoitems.js might want to update the way it is accessed.
+export { genProjectClick, projectNavListSetup, projectListingObject }

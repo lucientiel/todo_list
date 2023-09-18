@@ -1,12 +1,12 @@
-import { homePageSectionSetup } from "./homePage";
+import { homePageSectionSetup } from "./pageSections";
 import { genTodoItemForm } from "./todoForms";
 import { formSubmitClick } from "./todoItems";
 import { genProjectForm } from "./projectForm";
-import { genProjectClick, projectNavList } from "./projectItems";
+import { genProjectClick, projectNavListSetup } from "./projectItems";
 import "./style.css";
 
 homePageSectionSetup();
-projectNavList();
+projectNavListSetup();
 genTodoItemForm();
 genProjectForm();
 formSubmitClick();
