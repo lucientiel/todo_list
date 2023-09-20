@@ -8,10 +8,25 @@ const genProjectClick = () => { // create a new project directory, add it to the
     projectNameForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const formVals = new FormData(projectNameForm);
-        projectListingObject[formVals.get('project_name_input')] = [];
+        if (checkProjectNameUniqueness(formVals.get('project_name_input')) == false) {
+            alert('Name already used, try a different one!')
+        }
+        else {
+                    projectListingObject[formVals.get('project_name_input')] = [];
         console.log(projectListingObject);
         addtoProjectNavList(formVals.get('project_name_input'), formVals.get('project_name_input'));
+        }
     })
+}
+
+const checkProjectNameUniqueness = (projname) => {
+    let uniquebool = true;
+    for (let key in projectListingObject) {
+        if (projname == key) {
+            uniquebool = false;
+        }
+    }
+    return uniquebool;
 }
 
 const genNavListItem = (idName, projectName) => { //gen nav list elem for project
