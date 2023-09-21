@@ -25,7 +25,10 @@ const listingSection  = () => {
     const listingElem = document.createElement('div');
     listingElem.id = 'listing_elem';
 
-    listingContainer.append(listingHead, listingElem);
+    const listingCompleteElem = document.createElement('div');
+    listingCompleteElem.id = 'listing_complete_elem';
+
+    listingContainer.append(listingHead, listingElem, listingCompleteElem);
     contentDiv.appendChild(listingContainer);
 }
 

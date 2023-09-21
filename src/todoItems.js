@@ -116,7 +116,45 @@ const genitemDisplay = (todo_item) => {
         displayDate,
         displayPriority,
         displayDesc,
-        displayDelete
+        displayDelete,
+        displayEdit,
+        displayComplete
+    )
+
+    return todoitem_displayBox;
+}
+
+const genCompletedItemDisplay = (todo_item) => {
+    const todoitem_displayBox = document.createElement('div');
+    todoitem_displayBox.id = 'todo_item_displaybox'
+
+    const displayTitle = document.createElement('div');
+    displayTitle.className = 'display_title';
+    displayTitle.innerText = todo_item.getTitle();
+
+    const displayDate = document.createElement('div');
+    displayDate.className = 'display_date';
+    displayDate.innerText = `Due on ${todo_item.getDueDate()}`;
+
+    const displayPriority = document.createElement('div');
+    displayPriority.className = 'display_priority';
+    displayPriority.innerText = `Priority: ${todo_item.getPriority()}`;
+
+    const displayDesc = document.createElement('p');
+    displayDesc.innerText = todo_item.getDesc();
+
+    const displayDelete = document.createElement('button');
+    displayDelete.className = 'display_delete';
+    displayDelete.id = `delete_${todo_item.getTitle()}_${todo_item.getID()}`;
+    displayDelete.value = `${todo_item.getIndex}`;
+    displayDelete.innerText = 'Delete Todo';
+
+    todoitem_displayBox.append(
+        displayTitle,
+        displayDate,
+        displayPriority,
+        displayDesc,
+        displayDelete,
     )
 
     return todoitem_displayBox;
@@ -134,17 +172,44 @@ const todoDeleteClick = (todo_item) => {
         console.log('TOTAL LENGTH OF DIRECTORY AFTER DELETE: ',  projectListingObject[currProjectDirectory].length);
     })
 }
+
+const todoEditClick = (todo_item) => {
+    const todoItemEditButton = document.getElementById(`edit_${todo_item.getTitle()}_${todo_item.getID()}`);
+
+    todoItemEditButton.addEventListener('click', () => {
+        
+    })
+} 
+
+const todoCompleteClick = (todo_item) => {
+    const todoItemCompleteButton = document.getElementById(`complete_${todo_item.getTitle()}_${todo_item.getID()}`);
+    todoItemCompleteButton.addEventListener('click', () => {
+        todoItemCompleteButton.parentElement.remove();
+        todo_item.setComplete();
+
+        const completedList = document.getElementById('listing_complete_elem');
+
+        const completedtodoitem_displayBox = genCompletedItemDisplay(todo_item);
+
+        completedList.appendChild(completedtodoitem_displayBox);
+    })
+}
 // wipes all the items on the page, used when entering a new project directory in order to clear the page of the todo items from the previous directory
 const clearAllItemInDisplay = () => {
     const contentdiv = document.getElementById('listing_elem');
+    const contentdivcomplete = document.getElementById('listing_complete_elem');
     while (contentdiv.firstChild) {
         contentdiv.removeChild(contentdiv.lastChild);
+    }
+    while (contentdivcomplete.firstChild) {
+        contentdivcomplete.removeChild(contentdivcomplete.lastChild);
     }
 }
 
 // calls clearallitemindisplay to wipe the page, then add all the todo item objects related to the current project directory
 const displayitemsInList = () => {
     const contentdiv = document.getElementById('listing_elem');
+    const contentdivcomplete = document.getElementById('listing_complete_elem');
     clearAllItemInDisplay();
 
     const listingSectHead = document.getElementById('listing_head');
@@ -152,7 +217,13 @@ const displayitemsInList = () => {
 
     for (let i = 0; i < (projectListingObject[currProjectDirectory]).length; i++) {
         const currTodoItem = (projectListingObject[currProjectDirectory])[i]
-        contentdiv.appendChild(genitemDisplay(currTodoItem));
+        if (currTodoItem.getComplete() == false) {
+            contentdiv.appendChild(genitemDisplay(currTodoItem));
+            todoCompleteClick(currTodoItem);
+        }
+        else {
+            contentdivcomplete.appendChild(genCompletedItemDisplay(currTodoItem));
+        }
         todoDeleteClick(currTodoItem);
     }
     console.log('display items in current project list/directory: ', (projectListingObject[currProjectDirectory]));
