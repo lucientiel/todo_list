@@ -29,10 +29,14 @@ const genTodoItemForm = () => {
     createItemForm.id = 'todo_item_form'
 
     const titleInput = genFormInput('input', 'text', 'todo_item_title', 'todo_item_title');
+    titleInput.required = true;
     const descInput = genFormInput('textarea', '', 'todo_item_desc', 'todo_item_desc');
+    descInput.required = true;
     const dueDateInput = genFormInput('input', 'date', 'todo_item_duedate', 'todo_item_duedate');
+    dueDateInput.required = true;
     const priorityInput_low = genFormInput('input', 'radio', 'todo_item_priority', 'todo_item_priority');
     priorityInput_low.setAttribute('value', 'Low');
+    priorityInput_low.required = true;
     const priorityInput_med = genFormInput('input', 'radio', 'todo_item_priority', 'todo_item_priority');
     priorityInput_med.setAttribute('value', 'Medium');
     const priorityInput_high = genFormInput('input', 'radio', 'todo_item_priority', 'todo_item_priority');

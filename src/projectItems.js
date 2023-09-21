@@ -1,4 +1,4 @@
-import { currProjectDirectory, setCurrProjectDirectoryVal, displayitemsInList } from "./todoItems";
+import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInList } from "./todoItems";
 const projectListingObject = {
     'project_1' : []
 }
@@ -70,7 +70,7 @@ const genCurrDirectoryNavClick = (projectId) => {
         // currProjectDirectory = projectId;
         setCurrProjectDirectoryVal(projectId);
         const listingSectHead = document.getElementById('listing_head');
-        listingSectHead.innerText = projectId;
+        listingSectHead.innerText = projectId + ' ' + `${(projectListingObject[getCurrProjectDirectoryVal()]).length}/200`;
         displayitemsInList();
         console.log('display all project directory and item contents',projectListingObject)
     })

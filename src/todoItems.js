@@ -6,6 +6,8 @@ const setCurrProjectDirectoryVal = (someValue) => {
     currProjectDirectory = someValue;
 }
 
+const getCurrProjectDirectoryVal = () => currProjectDirectory;
+
 const genUniqueId = () => {
     let genNum = Math.floor(Math.random() * 200);
     const existingID = projectListingObject[currProjectDirectory].map(item => item.getID());
@@ -21,14 +23,17 @@ const todoItem = (title, description, duedate, priority) => {
     let _dueDate = duedate;
     let _priority = priority;
     let _id = genUniqueId();
+    let _complete = false;
 
     const getTitle = () => _title;
     const getDesc = () => _description;
     const getDueDate = () => _dueDate;
     const getPriority = () => _priority;
     const getID = () => _id;
+    const getComplete = () => _complete;
+    const setComplete = () => _complete = true;
 
-    return { getTitle, getDesc, getDueDate, getPriority, getID}
+    return { getTitle, getDesc, getDueDate, getPriority, getID, getComplete, setComplete}
 }
 
 const insertItemToList = (todo_item) => {
@@ -81,11 +86,11 @@ const genitemDisplay = (todo_item) => {
 
     const displayDate = document.createElement('div');
     displayDate.className = 'display_date';
-    displayDate.innerText = todo_item.getDueDate();
+    displayDate.innerText = `Due on ${todo_item.getDueDate()}`;
 
     const displayPriority = document.createElement('div');
     displayPriority.className = 'display_priority';
-    displayPriority.innerText = todo_item.getPriority();
+    displayPriority.innerText = `Priority: ${todo_item.getPriority()}`;
 
     const displayDesc = document.createElement('p');
     displayDesc.innerText = todo_item.getDesc();
@@ -95,6 +100,16 @@ const genitemDisplay = (todo_item) => {
     displayDelete.id = `delete_${todo_item.getTitle()}_${todo_item.getID()}`;
     displayDelete.value = `${todo_item.getIndex}`;
     displayDelete.innerText = 'Delete Todo';
+
+    const displayEdit = document.createElement('button');
+    displayEdit.id = `edit_${todo_item.getTitle()}_${todo_item.getID()}`;
+    displayEdit.value = `${todo_item.getIndex}`;
+    displayEdit.innerText = 'Edit Todo'
+
+    const displayComplete = document.createElement('button');
+    displayComplete.id = `complete_${todo_item.getTitle()}_${todo_item.getID()}`;
+    displayComplete.value = `${todo_item.getIndex}`;
+    displayComplete.innerText = 'Complete Todo'
 
     todoitem_displayBox.append(
         displayTitle,
@@ -111,8 +126,12 @@ const todoDeleteClick = (todo_item) => {
 
     todoItemDeleteButton.addEventListener('click', () => {
         todoItemDeleteButton.parentElement.remove();
-        projectListingObject[currProjectDirectory] = (projectListingObject[currProjectDirectory]).filter(item => item.getID() != todo_item.getID() && item.getTitle() != todo_item.getTitle());
-        console.log(`${todo_item} is deleted!`)
+        projectListingObject[currProjectDirectory] = (projectListingObject[currProjectDirectory]).filter(item => item.getID() != todo_item.getID());
+        console.log(`${todo_item} is deleted!`, projectListingObject[currProjectDirectory]);
+
+        const listingSectHead = document.getElementById('listing_head');
+        listingSectHead.innerText =  currProjectDirectory + ' ' + `${(projectListingObject[currProjectDirectory]).length}/200`; 
+        console.log('TOTAL LENGTH OF DIRECTORY AFTER DELETE: ',  projectListingObject[currProjectDirectory].length);
     })
 }
 // wipes all the items on the page, used when entering a new project directory in order to clear the page of the todo items from the previous directory
@@ -127,6 +146,10 @@ const clearAllItemInDisplay = () => {
 const displayitemsInList = () => {
     const contentdiv = document.getElementById('listing_elem');
     clearAllItemInDisplay();
+
+    const listingSectHead = document.getElementById('listing_head');
+    listingSectHead.innerText =  getCurrProjectDirectoryVal() + ' ' + `${(projectListingObject[getCurrProjectDirectoryVal()]).length}/200`;
+
     for (let i = 0; i < (projectListingObject[currProjectDirectory]).length; i++) {
         const currTodoItem = (projectListingObject[currProjectDirectory])[i]
         contentdiv.appendChild(genitemDisplay(currTodoItem));
@@ -137,6 +160,6 @@ const displayitemsInList = () => {
 
 export {
     formSubmitClick,
-    currProjectDirectory, setCurrProjectDirectoryVal,
+    currProjectDirectory, setCurrProjectDirectoryVal, getCurrProjectDirectoryVal,
     displayitemsInList
 }
