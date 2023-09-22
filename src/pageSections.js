@@ -15,6 +15,9 @@ const sideBarSection = () => {
 const listingSection  = () => {
     const contentDiv = document.getElementById('content');
 
+    const displayModal = document.createElement('dialog');
+    displayModal.id = 'display_modal';
+
     const listingContainer = document.createElement('div');
     listingContainer.id = 'listing_container';
 
@@ -28,7 +31,7 @@ const listingSection  = () => {
     const listingCompleteElem = document.createElement('div');
     listingCompleteElem.id = 'listing_complete_elem';
 
-    listingContainer.append(listingHead, listingElem, listingCompleteElem);
+    listingContainer.append(displayModal, listingHead, listingElem, listingCompleteElem);
     contentDiv.appendChild(listingContainer);
 }
 

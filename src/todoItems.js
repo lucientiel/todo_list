@@ -1,4 +1,5 @@
 import { projectListingObject } from "./projectItems";
+import { genEditTodoForm } from "./todoForms";
 
 let currProjectDirectory;
 
@@ -177,9 +178,43 @@ const todoEditClick = (todo_item) => {
     const todoItemEditButton = document.getElementById(`edit_${todo_item.getTitle()}_${todo_item.getID()}`);
 
     todoItemEditButton.addEventListener('click', () => {
-        
+        genEditTodoForm(todo_item);
+        document.getElementById('display_modal').showModal();
+        todoEditCancelClick();
+        todoEditSaveClick(todo_item);
     })
 } 
+
+const clearncloseDisplayModal = () => {
+    const displayModal = document.getElementById('display_modal');
+    displayModal.close();
+    while (displayModal.firstChild) {
+        displayModal.removeChild(displayModal.lastChild);
+    }
+}
+const todoEditCancelClick = () => {
+    const cancelEditButton = document.getElementById('todo_edit_cancel');
+    cancelEditButton.addEventListener('click', () => {
+        clearncloseDisplayModal();
+    })
+}
+
+const todoEditSaveClick = (todo_item) => {
+    const todoEditForm = document.getElementById('edit_form');
+    todoEditForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formVals = new FormData(todoEditForm);
+        const currtodoIdx = (projectListingObject[currProjectDirectory]).indexOf(todo_item);
+        (projectListingObject[currProjectDirectory])[currtodoIdx] = todoItem(
+            formVals.get('todo_edit_title'),
+            formVals.get('todo_edit_desc'),
+            formVals.get('todo_edit_duedate'),
+            formVals.get('todo_edit_priority')
+        )
+        clearncloseDisplayModal();
+        displayitemsInList();
+    })
+}
 
 const todoCompleteClick = (todo_item) => {
     const todoItemCompleteButton = document.getElementById(`complete_${todo_item.getTitle()}_${todo_item.getID()}`);
@@ -220,6 +255,7 @@ const displayitemsInList = () => {
         if (currTodoItem.getComplete() == false) {
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
+            todoEditClick(currTodoItem);
         }
         else {
             contentdivcomplete.appendChild(genCompletedItemDisplay(currTodoItem));

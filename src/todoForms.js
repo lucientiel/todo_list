@@ -80,4 +80,83 @@ const genTodoItemForm = () => {
     contentDiv.append(formContainer);
 }
 
-export { genTodoItemForm, genFormInput, genLabel }
+const genEditTodoForm = (todo_item) => {
+
+    const editFormContainer = document.createElement('div');
+    editFormContainer.id = 'edit_form_container';
+
+    const editForm = document.createElement('form');
+    editForm.id = 'edit_form';
+
+    const editTitle = genFormInput('input', 'text', 'todo_edit_title', 'todo_edit_title');
+    editTitle.setAttribute('value', todo_item.getTitle());
+
+    const editDesc =  genFormInput('textarea', '', 'todo_edit_desc', 'todo_edit_desc');
+    editDesc.defaultValue = todo_item.getDesc();
+
+    const editDate =  genFormInput('input', 'date', 'todo_edit_duedate', 'todo_edit_duedate');
+    editDate.defaultValue = todo_item.getDueDate();
+
+    const editPriority_low =  genFormInput('input', 'radio', 'todo_edit_priority', 'todo_edit_priority');
+    editPriority_low.setAttribute('value', 'Low');
+    editPriority_low.required = true;
+
+    const editPriority_med = genFormInput('input', 'radio', 'todo_edit_priority', 'todo_edit_priority');
+    editPriority_med.setAttribute('value', 'Medium');
+    
+    const editPriority_high = genFormInput('input', 'radio', 'todo_edit_priority', 'todo_edit_priority');
+    editPriority_high.setAttribute('value', 'High');
+
+    if (todo_item.getPriority() == 'Low') {
+        editPriority_low.checked = true;
+    }
+    else if (todo_item.getPriority() == 'Medium') {
+        editPriority_med.checked = true;
+    }
+    else {
+        editPriority_high.checked = true;
+    }
+
+    const editTitleLabel = genLabel('todo_edit_title', 'Title');
+    const editDescLabel =  genLabel('todo_edit_desc', 'Description');
+    const editDueDateLabel =  genLabel('todo_edit_duedate', 'Due Date');
+    const editPriorityLabel =  genLabel('todo_edit_priority', 'Priority');
+    const editPriority_low_label =  genLabel('todo_edit_title', 'Low');
+    const editPriority_med_label=  genLabel('todo_edit_title', 'Medium');
+    const editPriority_high_label =  genLabel('todo_edit_title', 'High');
+
+    const cancelButton = document.createElement('button');
+    cancelButton.type = 'button';
+    cancelButton.id = 'todo_edit_cancel';
+    cancelButton.innerText = 'Cancel Edit'
+
+    const saveEditButton = document.createElement('button');
+    saveEditButton.type = 'submit';
+    saveEditButton.id = 'todo_edit_submit';
+    saveEditButton.setAttribute('form', 'edit_form');
+    saveEditButton.innerText = 'Save Edit';
+
+    editForm.append(
+        editTitleLabel, editTitle,
+        genlineBreak(),
+        editDescLabel, editDesc,
+        genlineBreak(),
+        editDueDateLabel, editDate, 
+        genlineBreak(),
+        editPriorityLabel,
+        genlineBreak(),
+        editPriority_low_label, editPriority_low,
+        genlineBreak(),
+        editPriority_med_label, editPriority_med,
+        genlineBreak(),
+        editPriority_high_label, editPriority_high,
+        genlineBreak(),
+        cancelButton, saveEditButton
+    )
+    editFormContainer.appendChild(editForm);
+
+    const displayModal = document.getElementById('display_modal');
+    displayModal.appendChild(editFormContainer);
+}
+
+export { genTodoItemForm, genFormInput, genLabel, genEditTodoForm }
