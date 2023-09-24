@@ -2,6 +2,7 @@ import { projectListingObject } from "./projectItems";
 import { genEditTodoForm } from "./todoForms";
 import { sortingOptions } from "./sort/sorting";
 import { sortOptionChange } from "./sort/sortEvents";
+import { savedSortDisplayItemsInList } from "./sort/sortingFuncs";
 
 let currProjectDirectory;
 
@@ -162,7 +163,7 @@ const genCompletedItemDisplay = (todo_item) => {
 
     return todoitem_displayBox;
 }
-const todoDeleteClick = (todo_item) => {
+const todoDeleteClick = (todo_item) => { // what happens when user click on the todo item's delete todo button
     const todoItemDeleteButton = document.getElementById(`delete_${todo_item.getTitle()}_${todo_item.getID()}`);
 
     todoItemDeleteButton.addEventListener('click', () => {
@@ -176,7 +177,7 @@ const todoDeleteClick = (todo_item) => {
     })
 }
 
-const todoEditClick = (todo_item) => {
+const todoEditClick = (todo_item) => { // what happens when user click on the todo item's edit todo button
     const todoItemEditButton = document.getElementById(`edit_${todo_item.getTitle()}_${todo_item.getID()}`);
 
     todoItemEditButton.addEventListener('click', () => {
@@ -194,14 +195,14 @@ const clearncloseDisplayModal = () => {
         displayModal.removeChild(displayModal.lastChild);
     }
 }
-const todoEditCancelClick = () => {
+const todoEditCancelClick = () => { // what happens when user click on the todo item's cancel edit todo button
     const cancelEditButton = document.getElementById('todo_edit_cancel');
     cancelEditButton.addEventListener('click', () => {
         clearncloseDisplayModal();
     })
 }
 
-const todoEditSaveClick = (todo_item) => {
+const todoEditSaveClick = (todo_item) => { // what happens when user clicks on save after making changes in the todo edit form
     const todoEditForm = document.getElementById('edit_form');
     todoEditForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -214,7 +215,8 @@ const todoEditSaveClick = (todo_item) => {
             formVals.get('todo_edit_priority')
         )
         clearncloseDisplayModal();
-        displayitemsInList();
+        // displayitemsInList();
+        savedSortDisplayItemsInList();
     })
 }
 

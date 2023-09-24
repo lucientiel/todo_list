@@ -205,4 +205,11 @@ const prioritySortDisplay_htl = () => {
 };
 
 
-export { sortOptionChange }
+export { sortOptionChange, 
+    recencySortDisplay_otn, 
+    recencySortDispay_nto, 
+    duedateSortDisplay_etl, 
+    duedateSortDisplay_lte, 
+    prioritySortDisplay_lth, 
+    prioritySortDisplay_htl 
+}
