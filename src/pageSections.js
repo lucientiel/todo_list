@@ -22,16 +22,20 @@ const listingSection  = () => {
     listingContainer.id = 'listing_container';
 
     const listingHead = document.createElement('div');
-    listingHead.id = 'listing_head';
+    listingHead.id = 'listing_head'; //contains project name and amount of todos
     listingHead.innerText = 'Please select a project directory!'
 
-    const listingElem = document.createElement('div');
-    listingElem.id = 'listing_elem';
+    // const listingElem_label = document.createElement('div');
+    // listingElem_label.innerText = 'To Dos'
+    // const listingElem = document.createElement('div');
+    // listingElem.id = 'listing_elem';
 
-    const listingCompleteElem = document.createElement('div');
-    listingCompleteElem.id = 'listing_complete_elem';
+    // const listingComplete_label = document.createElement('div');
+    // listingComplete_label.innerText = 'Completed To Dos'
+    // const listingCompleteElem = document.createElement('div');
+    // listingCompleteElem.id = 'listing_complete_elem';
 
-    listingContainer.append(displayModal, listingHead, listingElem, listingCompleteElem);
+    listingContainer.append(displayModal, listingHead);
     contentDiv.appendChild(listingContainer);
 }
 

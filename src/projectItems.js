@@ -1,4 +1,5 @@
 import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInList } from "./todoItems";
+import { sortingOptions } from "./sort/sorting";
 const projectListingObject = {
     'project_1' : []
 }
@@ -63,15 +64,43 @@ const addtoProjectNavList = (idName, projectName) => { // add individual submitt
     genCurrDirectoryNavClick(idName);
 };
 
-const genCurrDirectoryNavClick = (projectId) => {
+const removeListingElems = () => { //removes listingElem_label and listingElem, as well as listingComplete_label and listingCompleteElem
+    const listing_container = document.getElementById('listing_container');
+    while (listing_container.childNodes.length > 2) { // 2 bc the display modal is the first child, the listing head is second child
+        listing_container.removeChild(listing_container.lastChild);
+    }
+}
+
+const addListingElems = () => {
+    const listing_container = document.getElementById('listing_container');
+    const listingElem_label = document.createElement('div');
+    listingElem_label.innerText = 'To Dos'
+    const listingElem = document.createElement('div');
+    listingElem.id = 'listing_elem';
+
+    const listingComplete_label = document.createElement('div');
+    listingComplete_label.innerText = 'Completed To Dos'
+    const listingCompleteElem = document.createElement('div');
+    listingCompleteElem.id = 'listing_complete_elem';
+
+    listing_container.append(listingElem_label, listingElem, 
+        listingComplete_label, listingCompleteElem);
+}
+
+const genCurrDirectoryNavClick = (projectId) => { //navigating to the project user clicks on
     const currNavItem = document.getElementById(projectId);
 
     currNavItem.addEventListener('click', () => {
-        // currProjectDirectory = projectId;
+        removeListingElems();
+        addListingElems();
+
         setCurrProjectDirectoryVal(projectId);
-        const listingSectHead = document.getElementById('listing_head');
-        listingSectHead.innerText = projectId + ' ' + `${(projectListingObject[getCurrProjectDirectoryVal()]).length}/200`;
-        displayitemsInList();
+        // const listingSectHead = document.getElementById('listing_head');
+        // listingSectHead.innerText = projectId + ' ' + `${(projectListingObject[getCurrProjectDirectoryVal()]).length}/200`;
+        // listingSectHead.appendChild(sortingOptions());
+        // listingSectHead.innerText = "TEST ESTSETSETSE"
+        // console.log('TEST TEST TEST ETST')
+        displayitemsInList(); // this function will update list_head content as well
         console.log('display all project directory and item contents',projectListingObject)
     })
 }

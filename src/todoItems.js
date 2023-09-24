@@ -1,5 +1,7 @@
 import { projectListingObject } from "./projectItems";
 import { genEditTodoForm } from "./todoForms";
+import { sortingOptions } from "./sort/sorting";
+import { sortOptionChange } from "./sort/sortEvents";
 
 let currProjectDirectory;
 
@@ -248,25 +250,28 @@ const displayitemsInList = () => {
     clearAllItemInDisplay();
 
     const listingSectHead = document.getElementById('listing_head');
-    listingSectHead.innerText =  getCurrProjectDirectoryVal() + ' ' + `${(projectListingObject[getCurrProjectDirectoryVal()]).length}/200`;
-
+    listingSectHead.innerText =  getCurrProjectDirectoryVal() + ' ' + `${(projectListingObject[getCurrProjectDirectoryVal()]).length}/200` + ' To Dos';
+    listingSectHead.appendChild(sortingOptions());
     for (let i = 0; i < (projectListingObject[currProjectDirectory]).length; i++) {
         const currTodoItem = (projectListingObject[currProjectDirectory])[i]
-        if (currTodoItem.getComplete() == false) {
+        if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
             todoEditClick(currTodoItem);
         }
-        else {
+        else { //adds complete todos to the completed todo list
             contentdivcomplete.appendChild(genCompletedItemDisplay(currTodoItem));
         }
         todoDeleteClick(currTodoItem);
     }
     console.log('display items in current project list/directory: ', (projectListingObject[currProjectDirectory]));
+    sortOptionChange();
 }
 
 export {
     formSubmitClick,
     currProjectDirectory, setCurrProjectDirectoryVal, getCurrProjectDirectoryVal,
-    displayitemsInList
+    displayitemsInList, clearAllItemInDisplay,
+    genitemDisplay, genCompletedItemDisplay,
+    todoDeleteClick, todoEditClick, todoEditCancelClick, todoCompleteClick
 }

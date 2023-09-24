@@ -2,3 +2,14 @@
     border-color: black;
     border-style: dashed;
 } 
+
+
+#sidebar_container, #listing_container {
+    border-color: black;
+    border-style: solid;
+}
+
+#listing_elem, #listing_complete_elem {
+    border-color: black;
+    border-style: groove;
+}
