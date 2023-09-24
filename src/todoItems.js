@@ -26,18 +26,35 @@ const todoItem = (title, description, duedate, priority) => {
     let _description = description;
     let _dueDate = duedate;
     let _priority = priority;
+    let _creationDate = new Date();
+    let _editedDate = 'None'
     let _id = genUniqueId();
     let _complete = false;
 
     const getTitle = () => _title;
+    const setTitle = (newTitle) => _title = newTitle;
+
     const getDesc = () => _description;
+    const setDesc = (newDesc) => _description = newDesc;
+
     const getDueDate = () => _dueDate;
+    const setDueDate = (newDueDate) => _dueDate = newDueDate;
+    
     const getPriority = () => _priority;
+    const setPriority = (newPriority) => _priority = newPriority;
+
+    const getCreationDate = () => _creationDate;
+
+    const getEditedDate = () => _editedDate;
+    const setEditedDate = (newDate) => _editedDate = newDate;
+
     const getID = () => _id;
+
     const getComplete = () => _complete;
     const setComplete = () => _complete = true;
 
-    return { getTitle, getDesc, getDueDate, getPriority, getID, getComplete, setComplete}
+    return { getTitle, getDesc, getDueDate, getPriority, getCreationDate, getEditedDate, getComplete, getID, 
+        setTitle, setDesc, setDueDate, setPriority, setEditedDate, setComplete,}
 }
 
 const insertItemToList = (todo_item) => {
@@ -88,9 +105,26 @@ const genitemDisplay = (todo_item) => {
     displayTitle.className = 'display_title';
     displayTitle.innerText = todo_item.getTitle();
 
+    const displayDatesContainer = document.createElement('div');
+    displayDatesContainer.id = 'display_datescontainer';
+
     const displayDate = document.createElement('div');
     displayDate.className = 'display_date';
     displayDate.innerText = `Due on ${todo_item.getDueDate()}`;
+
+    const displayCreationDate = document.createElement('div');
+    displayCreationDate.id = 'display_creationdate';
+    displayCreationDate.innerText = `Created on ${todo_item.getCreationDate()}`
+
+    displayDatesContainer.append(displayDate, displayCreationDate);
+
+    if (todo_item.getEditedDate() != 'None') {
+        const displayEditedDate = document.createElement('div');
+        displayEditedDate.id = 'display_editeddate';
+        displayEditedDate.innerText = `Edited on ${todo_item.getEditedDate()}`;
+        displayDatesContainer.appendChild(displayEditedDate);
+    }
+
 
     const displayPriority = document.createElement('div');
     displayPriority.className = 'display_priority';
@@ -117,7 +151,7 @@ const genitemDisplay = (todo_item) => {
 
     todoitem_displayBox.append(
         displayTitle,
-        displayDate,
+        displayDatesContainer,
         displayPriority,
         displayDesc,
         displayDelete,
@@ -208,19 +242,25 @@ const todoEditSaveClick = (todo_item) => { // what happens when user clicks on s
         e.preventDefault();
         const formVals = new FormData(todoEditForm);
         const currtodoIdx = (projectListingObject[currProjectDirectory]).indexOf(todo_item);
-        (projectListingObject[currProjectDirectory])[currtodoIdx] = todoItem(
-            formVals.get('todo_edit_title'),
-            formVals.get('todo_edit_desc'),
-            formVals.get('todo_edit_duedate'),
-            formVals.get('todo_edit_priority')
-        )
+        // const currtodoItem = (projectListingObject[currProjectDirectory])[currtodoIdx];
+        //  = todoItem(
+        //     formVals.get('todo_edit_title'),
+        //     formVals.get('todo_edit_desc'),
+        //     formVals.get('todo_edit_duedate'),
+        //     formVals.get('todo_edit_priority')
+        // )
+        (projectListingObject[currProjectDirectory])[currtodoIdx].setTitle(formVals.get('todo_edit_title'));
+        (projectListingObject[currProjectDirectory])[currtodoIdx].setDesc(formVals.get('todo_edit_desc'));
+        (projectListingObject[currProjectDirectory])[currtodoIdx].setDueDate(formVals.get('todo_edit_duedate'));
+        (projectListingObject[currProjectDirectory])[currtodoIdx].setPriority(formVals.get('todo_edit_priority'));
+        (projectListingObject[currProjectDirectory])[currtodoIdx].setEditedDate(new Date());
         clearncloseDisplayModal();
         // displayitemsInList();
         savedSortDisplayItemsInList();
     })
 }
 
-const todoCompleteClick = (todo_item) => {
+const todoCompleteClick = (todo_item) => { //when the user clicks complete on a todo item, that single todo item is set to complete and added to the completed list
     const todoItemCompleteButton = document.getElementById(`complete_${todo_item.getTitle()}_${todo_item.getID()}`);
     todoItemCompleteButton.addEventListener('click', () => {
         todoItemCompleteButton.parentElement.remove();
@@ -267,7 +307,7 @@ const displayitemsInList = () => {
         todoDeleteClick(currTodoItem);
     }
     console.log('display items in current project list/directory: ', (projectListingObject[currProjectDirectory]));
-    sortOptionChange();
+    sortOptionChange(); //add event listener for the sort option change
 }
 
 export {
