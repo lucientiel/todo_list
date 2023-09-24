@@ -30,6 +30,7 @@ const todoItem = (title, description, duedate, priority) => {
     let _editedDate = 'None'
     let _id = genUniqueId();
     let _complete = false;
+    let _completedDate = 'None'
 
     const getTitle = () => _title;
     const setTitle = (newTitle) => _title = newTitle;
@@ -53,8 +54,11 @@ const todoItem = (title, description, duedate, priority) => {
     const getComplete = () => _complete;
     const setComplete = () => _complete = true;
 
-    return { getTitle, getDesc, getDueDate, getPriority, getCreationDate, getEditedDate, getComplete, getID, 
-        setTitle, setDesc, setDueDate, setPriority, setEditedDate, setComplete,}
+    const getCompletedDate = () => _completedDate;
+    const setCompletedDate = (newCompleteDate) => _completedDate = newCompleteDate
+
+    return { getTitle, getDesc, getDueDate, getPriority, getCreationDate, getEditedDate, getComplete, getCompletedDate, getID, 
+        setTitle, setDesc, setDueDate, setPriority, setEditedDate, setComplete, setCompletedDate}
 }
 
 const insertItemToList = (todo_item) => {
@@ -96,6 +100,34 @@ const formSubmitClick = () => {
     })
     
 }
+
+const parseDateYMD = (date) => {
+    const dateArr = date.split('-');
+    dateArr[1] = (Number(dateArr[1]) - 1).toString();
+    return dateArr;
+}
+const genOverDueDays = (todo_item) => {
+    const parsedDueDate = parseDateYMD(todo_item.getDueDate());
+    const dueDate = new Date(parsedDueDate[0], parsedDueDate[1], parsedDueDate[2], 23, 59, 59);
+    // dueDate.setHours(23, 59, 59); // set due date time to 11:59:59 pm of the due date
+    const currDate = new Date();
+    const overDueDays = Math.floor((dueDate - currDate) / 86400000)
+    // if (overDueDays == -1)
+    console.log(parsedDueDate, dueDate, currDate, overDueDays);
+
+    return overDueDays
+}
+
+const genOverDueNotice = (todo_item) => {
+    const overdueDays = genOverDueDays(todo_item);
+    if (overdueDays == 0) {
+        return '*Due today!*';
+    } else if (overdueDays < 0) {
+        return `*${(overdueDays*-1).toString()} days overdue!*`;
+    } else {
+        return `*Due in ${overdueDays} days.*`;
+    }
+}
 // This function takes a todo object and adds its dom to the page
 const genitemDisplay = (todo_item) => {
     const todoitem_displayBox = document.createElement('div');
@@ -110,25 +142,27 @@ const genitemDisplay = (todo_item) => {
 
     const displayDate = document.createElement('div');
     displayDate.className = 'display_date';
-    displayDate.innerText = `Due on ${todo_item.getDueDate()}`;
+    displayDate.innerText = `Due on: ${todo_item.getDueDate()}` + " " + genOverDueNotice(todo_item);
+
+
 
     const displayCreationDate = document.createElement('div');
     displayCreationDate.id = 'display_creationdate';
-    displayCreationDate.innerText = `Created on ${todo_item.getCreationDate()}`
+    displayCreationDate.innerText = `Created on: ${todo_item.getCreationDate()}`
 
     displayDatesContainer.append(displayDate, displayCreationDate);
 
     if (todo_item.getEditedDate() != 'None') {
         const displayEditedDate = document.createElement('div');
         displayEditedDate.id = 'display_editeddate';
-        displayEditedDate.innerText = `Edited on ${todo_item.getEditedDate()}`;
+        displayEditedDate.innerText = `Edited on: ${todo_item.getEditedDate()}`;
         displayDatesContainer.appendChild(displayEditedDate);
     }
-
+    genOverDueDays(todo_item);
 
     const displayPriority = document.createElement('div');
     displayPriority.className = 'display_priority';
-    displayPriority.innerText = `Priority: ${todo_item.getPriority()}`;
+    displayPriority.innerText = `Priority Level: ${todo_item.getPriority()}`;
 
     const displayDesc = document.createElement('p');
     displayDesc.innerText = todo_item.getDesc();
@@ -172,11 +206,15 @@ const genCompletedItemDisplay = (todo_item) => {
 
     const displayDate = document.createElement('div');
     displayDate.className = 'display_date';
-    displayDate.innerText = `Due on ${todo_item.getDueDate()}`;
+    displayDate.innerText = `Due on: ${todo_item.getDueDate()}`;
+
+    const displayCompletedDate = document.createElement('div');
+    displayCompletedDate.id = 'display_completedDate';
+    displayCompletedDate.innerText = `Completed on: ${todo_item.getCompletedDate()}`
 
     const displayPriority = document.createElement('div');
     displayPriority.className = 'display_priority';
-    displayPriority.innerText = `Priority: ${todo_item.getPriority()}`;
+    displayPriority.innerText = `Priority Level: ${todo_item.getPriority()}`;
 
     const displayDesc = document.createElement('p');
     displayDesc.innerText = todo_item.getDesc();
@@ -190,6 +228,7 @@ const genCompletedItemDisplay = (todo_item) => {
     todoitem_displayBox.append(
         displayTitle,
         displayDate,
+        displayCompletedDate,
         displayPriority,
         displayDesc,
         displayDelete,
@@ -265,6 +304,7 @@ const todoCompleteClick = (todo_item) => { //when the user clicks complete on a 
     todoItemCompleteButton.addEventListener('click', () => {
         todoItemCompleteButton.parentElement.remove();
         todo_item.setComplete();
+        todo_item.setCompletedDate(new Date());
 
         const completedList = document.getElementById('listing_complete_elem');
 
