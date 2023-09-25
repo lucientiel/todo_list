@@ -3,6 +3,7 @@ import { genEditTodoForm } from "./todoForms";
 import { sortingOptions } from "./sort/sorting";
 import { sortOptionChange } from "./sort/sortEvents";
 import { savedSortDisplayItemsInList } from "./sort/sortingFuncs";
+import { changebgColorByPriority } from "./priorityColors";
 
 let currProjectDirectory;
 
@@ -158,7 +159,7 @@ const genitemDisplay = (todo_item) => {
         displayEditedDate.innerText = `Edited on: ${todo_item.getEditedDate()}`;
         displayDatesContainer.appendChild(displayEditedDate);
     }
-    genOverDueDays(todo_item);
+    // genOverDueDays(todo_item);
 
     const displayPriority = document.createElement('div');
     displayPriority.className = 'display_priority';
@@ -192,6 +193,8 @@ const genitemDisplay = (todo_item) => {
         displayEdit,
         displayComplete
     )
+
+    changebgColorByPriority(todo_item, todoitem_displayBox);
 
     return todoitem_displayBox;
 }
