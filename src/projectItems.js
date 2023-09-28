@@ -105,4 +105,4 @@ const genCurrDirectoryNavClick = (projectId) => { //navigating to the project us
     })
 }
 //projectListingObject is currently exported to todoitems.js might want to update the way it is accessed.
-export { genProjectClick, projectNavListSetup, projectListingObject, removeListingElems }
+export { genProjectClick, projectNavListSetup, projectListingObject, removeListingElems, addListingElems }

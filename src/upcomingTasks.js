@@ -1,5 +1,5 @@
-import { projectListingObject } from "./projectItems";
-import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, changebgColorByPriority } from "./todoItems";
+import { projectListingObject, removeListingElems, addListingElems } from "./projectItems";
+import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, changebgColorByPriority, displayitemsInList, setCurrProjectDirectoryVal } from "./todoItems";
 import { upcomingTaskDayRange } from "./upcomingSelect";
 
 const getTodayDate = () => {
@@ -50,7 +50,7 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
     todoitem_displayBox.id = 'todo_item_displaybox'
 
     const displayProjectName = document.createElement('div');
-    displayProjectName.id = 'display_projectName';
+    displayProjectName.id = `display_projectName_${projectName}`;
     displayProjectName.innerText = `${projectName} >>>`;
 
     const displayTitle = document.createElement('div');
@@ -104,6 +104,20 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
     return todoitem_displayBox;
 }
 
+const upcomingTaskProjectNameClick = (projectName) => {
+    const allCurrProjectNameTasks = document.querySelectorAll(`#display_projectName_${projectName}`);
+    allCurrProjectNameTasks.forEach(
+        (projectNameSection) => {
+            projectNameSection.addEventListener('click', ()=> {
+            removeListingElems();
+            addListingElems();
+            setCurrProjectDirectoryVal(projectName);
+            displayitemsInList();
+            console.log('redirected from a upcoming task project name click!')
+        });
+    });
+}
+
 const displayAllUpcomingTasks = (nDays) => {
     const upcomingSection = document.getElementById('listing_upcoming');
     const upcomingTasks = filterItemsWithinNDays(getTodayDate(), nDays);
@@ -116,6 +130,8 @@ const displayAllUpcomingTasks = (nDays) => {
             const currUpcomingTaskItemDisplay = genUpcomingItemDisplay(filteredTaskItemList[i], projectName);
             upcomingSection.append(currUpcomingTaskItemDisplay);
         }
+        const projectId = projectName; // just for clarification's sake
+        upcomingTaskProjectNameClick(projectId);
     }
 }
 
