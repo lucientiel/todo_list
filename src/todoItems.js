@@ -1,9 +1,11 @@
-import { projectListingObject } from "./projectItems";
+import { projectListingObject, removeListingElems } from "./projectItems";
 import { genEditTodoForm } from "./todoForms";
 import { sortingOptions } from "./sort/sorting";
 import { sortOptionChange } from "./sort/sortEvents";
 import { savedSortDisplayItemsInList } from "./sort/sortingFuncs";
 import { changebgColorByPriority } from "./priorityColors";
+import { upcomingTaskDayRange } from "./upcomingSelect";
+import { displayAllUpcomingTasks } from "./upcomingTasks";
 
 let currProjectDirectory;
 
@@ -194,7 +196,7 @@ const genitemDisplay = (todo_item) => {
         displayComplete
     )
 
-    changebgColorByPriority(todo_item, todoitem_displayBox);
+    changebgColorByPriority(todo_item, todoitem_displayBox); //adds a bg color style to the todo item container
 
     return todoitem_displayBox;
 }
@@ -328,6 +330,33 @@ const clearAllItemInDisplay = () => {
     }
 }
 
+const exitProjectDirectoryButton = () => {
+    const exitButton = document.createElement('button') 
+    exitButton.id = 'exitdirectory_button';
+    exitButton.innerText = 'Exit Project';
+    return exitButton;
+}
+
+const exitProjectButtonClickListener = () => {
+    const exitButton = document.getElementById('exitdirectory_button');
+    exitButton.addEventListener('click', () => {
+        removeListingElems(); //removes listing elem and listing complete elem, leaving everything until listing head
+        const listingContainerElem = document.getElementById('listing_container');
+        const listingSectHead = document.getElementById('listing_head');
+        listingSectHead.innerText = 'Upcoming Tasks';
+        const listingUpcoming = document.createElement('div');
+        listingUpcoming.id = 'listing_upcoming';
+    
+        listingUpcoming.appendChild(upcomingTaskDayRange());
+
+        listingContainerElem.appendChild(listingUpcoming);
+
+        displayAllUpcomingTasks(1);
+    })
+}
+
+
+
 // calls clearallitemindisplay to wipe the page, then add all the todo item objects related to the current project directory
 const displayitemsInList = () => {
     const contentdiv = document.getElementById('listing_elem');
@@ -335,8 +364,10 @@ const displayitemsInList = () => {
     clearAllItemInDisplay();
 
     const listingSectHead = document.getElementById('listing_head');
-    listingSectHead.innerText =  getCurrProjectDirectoryVal() + ' ' + `${(projectListingObject[getCurrProjectDirectoryVal()]).length}/200` + ' To Dos';
-    listingSectHead.appendChild(sortingOptions());
+    listingSectHead.innerText =  getCurrProjectDirectoryVal() + ' ' + `${(projectListingObject[getCurrProjectDirectoryVal()]).length}/200` + ' Tasks';
+    listingSectHead.appendChild(sortingOptions()); // add the sorting select option into listing head
+    listingSectHead.appendChild(exitProjectDirectoryButton());
+
     for (let i = 0; i < (projectListingObject[currProjectDirectory]).length; i++) {
         const currTodoItem = (projectListingObject[currProjectDirectory])[i]
         if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
@@ -351,6 +382,7 @@ const displayitemsInList = () => {
     }
     console.log('display items in current project list/directory: ', (projectListingObject[currProjectDirectory]));
     sortOptionChange(); //add event listener for the sort option change
+    exitProjectButtonClickListener();
 }
 
 export {
@@ -358,5 +390,6 @@ export {
     currProjectDirectory, setCurrProjectDirectoryVal, getCurrProjectDirectoryVal,
     displayitemsInList, clearAllItemInDisplay,
     genitemDisplay, genCompletedItemDisplay,
-    todoDeleteClick, todoEditClick, todoEditCancelClick, todoCompleteClick
+    todoDeleteClick, todoEditClick, todoEditCancelClick, todoCompleteClick,
+    parseDateYMD, genOverDueDays, genOverDueNotice, changebgColorByPriority
 }

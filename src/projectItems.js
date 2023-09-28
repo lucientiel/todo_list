@@ -71,15 +71,15 @@ const removeListingElems = () => { //removes listingElem_label and listingElem, 
     }
 }
 
-const addListingElems = () => {
+const addListingElems = () => { //addes listing_elem and lstingcompelte_elem into page via a umbrella listing_container div
     const listing_container = document.getElementById('listing_container');
     const listingElem_label = document.createElement('div');
-    listingElem_label.innerText = 'To Dos'
+    listingElem_label.innerText = 'Tasks'
     const listingElem = document.createElement('div');
     listingElem.id = 'listing_elem';
 
     const listingComplete_label = document.createElement('div');
-    listingComplete_label.innerText = 'Completed To Dos'
+    listingComplete_label.innerText = 'Completed Tasks'
     const listingCompleteElem = document.createElement('div');
     listingCompleteElem.id = 'listing_complete_elem';
 
@@ -91,8 +91,8 @@ const genCurrDirectoryNavClick = (projectId) => { //navigating to the project us
     const currNavItem = document.getElementById(projectId);
 
     currNavItem.addEventListener('click', () => {
-        removeListingElems();
-        addListingElems();
+        removeListingElems(); //removes any listing_elem div and listingcomplete_elem div from page
+        addListingElems(); //adds listing_elem div and listingcomplete_elem div to page
 
         setCurrProjectDirectoryVal(projectId);
         // const listingSectHead = document.getElementById('listing_head');
@@ -105,4 +105,4 @@ const genCurrDirectoryNavClick = (projectId) => { //navigating to the project us
     })
 }
 //projectListingObject is currently exported to todoitems.js might want to update the way it is accessed.
-export { genProjectClick, projectNavListSetup, projectListingObject }
+export { genProjectClick, projectNavListSetup, projectListingObject, removeListingElems }

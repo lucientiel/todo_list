@@ -1,3 +1,5 @@
+import { upcomingTaskDayRange } from "./upcomingSelect";
+
 const sideBarSection = () => {
     const contentDiv = document.getElementById('content');
 
@@ -23,19 +25,15 @@ const listingSection  = () => {
 
     const listingHead = document.createElement('div');
     listingHead.id = 'listing_head'; //contains project name and amount of todos
-    listingHead.innerText = 'Please select a project directory!'
+    listingHead.innerText = 'Upcoming Tasks'
 
-    // const listingElem_label = document.createElement('div');
-    // listingElem_label.innerText = 'To Dos'
-    // const listingElem = document.createElement('div');
-    // listingElem.id = 'listing_elem';
+    const listingUpcoming = document.createElement('div');
+    listingUpcoming.id = 'listing_upcoming';
 
-    // const listingComplete_label = document.createElement('div');
-    // listingComplete_label.innerText = 'Completed To Dos'
-    // const listingCompleteElem = document.createElement('div');
-    // listingCompleteElem.id = 'listing_complete_elem';
+    listingUpcoming.appendChild(upcomingTaskDayRange());
+    
 
-    listingContainer.append(displayModal, listingHead);
+    listingContainer.append(displayModal, listingHead, listingUpcoming);
     contentDiv.appendChild(listingContainer);
 }
 
