@@ -27,7 +27,7 @@ const filterItemsWithinNDays = (currDateObj, nDays) => {
             console.log('ITEM PARSED DATE', itemDueDateParsed);
             const itemDueDateObj = new Date(itemDueDateParsed[0], itemDueDateParsed[1], itemDueDateParsed[2]);
             console.log('ITEMDUEDATEOBJ', itemDueDateObj, 'NDAYSLATER', nDaysLaterDate);
-            if (itemDueDateObj.getTime() <= nDaysLaterDate.getTime()) {
+            if (itemDueDateObj.getTime() <= nDaysLaterDate.getTime() && item.getComplete() != true) {
                 return itemDueDateObj;
             };
         });
@@ -122,7 +122,7 @@ const displayAllUpcomingTasks = (nDays) => {
     const upcomingSection = document.getElementById('listing_upcoming');
     const upcomingTasks = filterItemsWithinNDays(getTodayDate(), nDays);
     console.log('UPCOMING TASKS', upcomingTasks);
-    clearUpcomingSectionList();
+    clearUpcomingSectionList(); //clears all upcoming task but keeps the upcoming due date select option
     for (let projectName in upcomingTasks) {
         const filteredTaskItemList = upcomingTasks[projectName];
         console.log('filteredTaskItemList',filteredTaskItemList);

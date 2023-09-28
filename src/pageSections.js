@@ -1,4 +1,5 @@
 import { upcomingTaskDayRange } from "./upcomingSelect";
+import { selectUpcomingDuedTasksDaysOptionClick } from "./upcomingSelectEvents";
 
 const sideBarSection = () => {
     const contentDiv = document.getElementById('content');
@@ -35,6 +36,8 @@ const listingSection  = () => {
 
     listingContainer.append(displayModal, listingHead, listingUpcoming);
     contentDiv.appendChild(listingContainer);
+
+    selectUpcomingDuedTasksDaysOptionClick();
 }
 
 

@@ -6,6 +6,7 @@ import { savedSortDisplayItemsInList } from "./sort/sortingFuncs";
 import { changebgColorByPriority } from "./priorityColors";
 import { upcomingTaskDayRange } from "./upcomingSelect";
 import { displayAllUpcomingTasks } from "./upcomingTasks";
+import { selectUpcomingDuedTasksDaysOptionClick } from "./upcomingSelectEvents";
 
 let currProjectDirectory;
 
@@ -351,7 +352,8 @@ const exitProjectButtonClickListener = () => {
 
         listingContainerElem.appendChild(listingUpcoming);
 
-        displayAllUpcomingTasks(1);
+        displayAllUpcomingTasks(0);
+        selectUpcomingDuedTasksDaysOptionClick();
     })
 }
 
