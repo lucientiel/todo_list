@@ -310,6 +310,7 @@ const exitProjectButtonClickListener = () => {
 
         displayAllUpcomingTasks(0);
         selectUpcomingDuedTasksDaysOptionClick();
+        setCurrProjectDirectoryVal(undefined);
     })
 }
 
