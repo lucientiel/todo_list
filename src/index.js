@@ -1,8 +1,8 @@
 import { homePageSectionSetup } from "./pageSections";
 import { genTodoItemForm } from "./todoForms";
 import { formSubmitClick } from "./todoItems";
-import { genProjectForm } from "./projectForm";
-import { genProjectClick, projectNavListSetup } from "./projectItems";
+import { genProjectForm } from "./projectFuncs/projectForm";
+import { genProjectClick, projectNavListSetup } from "./projectFuncs/projectItems";
 import { genDefaultDirectory } from "./storage/localStorageFuncs";
 import "./style.css";
 import { displayAllUpcomingTasks } from "./upcomingTasks";

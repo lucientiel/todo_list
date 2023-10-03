@@ -1,4 +1,4 @@
-import { removeListingElems, addListingElems } from "./projectItems";
+import { removeListingElems, addListingElems } from "./projectFuncs/projectItems";
 import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, changebgColorByPriority, displayitemsInList, setCurrProjectDirectoryVal } from "./todoItems";
 import { upcomingTaskDayRange } from "./upcomingSelect";
 

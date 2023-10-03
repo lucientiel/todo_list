@@ -1,4 +1,4 @@
-import { removeListingElems } from "./projectItems";
+import { removeListingElems } from "./projectFuncs/projectItems";
 import { genEditTodoForm } from "./todoForms";
 import { sortingOptions } from "./sort/sorting";
 import { sortOptionChange } from "./sort/sortEvents";

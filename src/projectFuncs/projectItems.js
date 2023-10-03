@@ -1,6 +1,6 @@
-import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInList, currProjectDirectory } from "./todoItems";
-import { sortingOptions } from "./sort/sorting";
-import { addNewDirectorytoLocalStorage, checkProjectNameUniqueness} from "./storage/localStorageFuncs";
+import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInList, currProjectDirectory } from "../todoItems";
+import { sortingOptions } from "../sort/sorting";
+import { addNewDirectorytoLocalStorage, checkProjectNameUniqueness} from "../storage/localStorageFuncs";
 
 
 const genProjectClick = () => { // create a new project directory, add it to the project listing object and call addtoProjectNavList to display on page navlist

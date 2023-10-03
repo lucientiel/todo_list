@@ -1,4 +1,4 @@
-import { genFormInput, genLabel } from "./todoForms";
+import { genFormInput, genLabel } from "../todoForms";
 
 const genProjectForm = () => {
     const contentDiv = document.getElementById('sidebar_elem');
