@@ -24,12 +24,12 @@ const filterItemsWithinNDays = (currDateObj, nDays) => {
         const projectName = localStorage.key(i);
         const listofItemsInProjectWithinRange = (JSON.parse(localStorage.getItem(projectName))).filter(function(item) {
             console.log('ITEM BEING FILTERED', item);
-            // const itemDueDateParsed = (item.getDueDate()).split('-');
-            const itemDueDateParsed = parseDateYMD(item.getDueDate());
-            console.log('ITEM PARSED DATE', itemDueDateParsed);
+            // const itemDueDateParsed = (item.dueDate).split('-');
+            const itemDueDateParsed = parseDateYMD(item.dueDate);
+            // console.log('ITEM PARSED DATE', itemDueDateParsed);
             const itemDueDateObj = new Date(itemDueDateParsed[0], itemDueDateParsed[1], itemDueDateParsed[2]);
-            console.log('ITEMDUEDATEOBJ', itemDueDateObj, 'NDAYSLATER', nDaysLaterDate);
-            if (itemDueDateObj.getTime() <= nDaysLaterDate.getTime() && item.getComplete() != true) {
+            // console.log('ITEMDUEDATEOBJ', itemDueDateObj, 'NDAYSLATER', nDaysLaterDate);
+            if (itemDueDateObj.getTime() <= nDaysLaterDate.getTime() && item.complete != true) {
                 return itemDueDateObj;
             };
         });
@@ -57,37 +57,37 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
 
     const displayTitle = document.createElement('div');
     displayTitle.className = 'display_title';
-    displayTitle.innerText = todo_item.getTitle();
+    displayTitle.innerText = todo_item.title;
 
     const displayDatesContainer = document.createElement('div');
     displayDatesContainer.id = 'display_datescontainer';
 
     const displayDate = document.createElement('div');
     displayDate.className = 'display_date';
-    displayDate.innerText = `Due on: ${todo_item.getDueDate()}` + " " + genOverDueNotice(todo_item);
+    displayDate.innerText = `Due on: ${todo_item.dueDate}` + " " + genOverDueNotice(todo_item);
 
 
 
     const displayCreationDate = document.createElement('div');
     displayCreationDate.id = 'display_creationdate';
-    displayCreationDate.innerText = `Created on: ${todo_item.getCreationDate()}`
+    displayCreationDate.innerText = `Created on: ${todo_item.creationDate}`
 
     displayDatesContainer.append(displayDate, displayCreationDate);
 
-    if (todo_item.getEditedDate() != 'None') {
+    if (todo_item.editedDate != 'None') {
         const displayEditedDate = document.createElement('div');
         displayEditedDate.id = 'display_editeddate';
-        displayEditedDate.innerText = `Edited on: ${todo_item.getEditedDate()}`;
+        displayEditedDate.innerText = `Edited on: ${todo_item.editedDate}`;
         displayDatesContainer.appendChild(displayEditedDate);
     }
     // genOverDueDays(todo_item);
 
     const displayPriority = document.createElement('div');
     displayPriority.className = 'display_priority';
-    displayPriority.innerText = `Priority Level: ${todo_item.getPriority()}`;
+    displayPriority.innerText = `Priority Level: ${todo_item.priority}`;
 
     const displayDesc = document.createElement('p');
-    displayDesc.innerText = todo_item.getDesc();
+    displayDesc.innerText = todo_item.description;
     
     // const displayComplete = document.createElement('button');
     // displayComplete.id = `complete_${todo_item.getTitle()}_${todo_item.getID()}_upcoming`;

@@ -7,7 +7,7 @@ import { changebgColorByPriority } from "./priorityColors";
 import { upcomingTaskDayRange } from "./upcomingSelect";
 import { displayAllUpcomingTasks } from "./upcomingTasks";
 import { selectUpcomingDuedTasksDaysOptionClick } from "./upcomingSelectEvents";
-import { deleteItemfromDirectory, editItemInDirectory, getCurrItem, getCurrItemIndex, getCurrProjectDirectoryLength, insertItemToList } from "./storage/localStorageFuncs";
+import { deleteItemfromDirectory, editItemInDirectory, getCurrItem, getCurrItemIndex, getCurrProjectDirectoryLength, insertItemToList, setItemComplete } from "./storage/localStorageFuncs";
 
 let currProjectDirectory;
 
@@ -19,55 +19,26 @@ const getCurrProjectDirectoryVal = () => currProjectDirectory;
 
 const genUniqueId = () => {
     let genNum = Math.floor(Math.random() * 200);
-    const existingID = (JSON.parse(localStorage.getItem(currProjectDirectory))).map(item => item.getID()); // check all existing
+    const existingID = (JSON.parse(localStorage.getItem(currProjectDirectory))).map(item => item.id); // check all existing
     while (existingID.includes(genNum)) {
         genNum = Math.floor(Math.random() * 200);
     }
     return genNum;
 }
 
-const todoItem = (title, description, duedate, priority) => {
-    let _title = title;
-    let _description = description;
-    let _dueDate = duedate;
-    let _priority = priority;
-    let _creationDate = new Date();
-    let _editedDate = 'None'
-    let _id = genUniqueId();
-    let _complete = false;
-    let _completedDate = 'None'
+const todoItem = (inputtitle, inputdescription, inputduedate, inputpriority) => {
+    let title = inputtitle;
+    let description = inputdescription;
+    let dueDate = inputduedate;
+    let priority = inputpriority;
+    let creationDate = new Date();
+    let editedDate = 'None'
+    let id = genUniqueId();
+    let complete = false;
+    let completedDate = 'None'
 
-    const getTitle = () => _title;
-    const setTitle = (newTitle) => _title = newTitle;
 
-    const getDesc = () => _description;
-    const setDesc = (newDesc) => _description = newDesc;
-
-    const getDueDate = () => _dueDate;
-    const setDueDate = (newDueDate) => _dueDate = newDueDate;
-    
-    const getPriority = () => _priority;
-    const setPriority = (newPriority) => _priority = newPriority;
-
-    const getCreationDate = () => _creationDate;
-    const setCreationDate = (otherDate) => _creationDate = otherDate
-
-    const getEditedDate = () => _editedDate;
-    const setEditedDate = (newDate) => _editedDate = newDate;
-
-    const getID = () => _id;
-    const setID = (otherID) => _id = otherID;
-
-    const getComplete = () => _complete;
-    const setComplete = () => _complete = true;
-
-    const getCompletedDate = () => _completedDate;
-    const setCompletedDate = (newCompleteDate) => _completedDate = newCompleteDate
-
-    return { getTitle, getDesc, getDueDate, getPriority, getCreationDate, getEditedDate, getComplete, getCompletedDate, getID, 
-        setTitle, setDesc, setDueDate, setPriority, setEditedDate, setComplete, setCompletedDate,
-        setID, setCreationDate
-    }
+    return { title, description, dueDate, priority, creationDate, editedDate, id, complete, completedDate}
 }
 
 
@@ -90,7 +61,7 @@ const formSubmitClick = () => {
                 formVals.get('todo_item_duedate'),
                 formVals.get('todo_item_priority')
             );
-            console.log(newTodoItem.getID())
+            console.log(newTodoItem.id)
             insertItemToList(newTodoItem);
             displayitemsInList();
         }
@@ -105,7 +76,7 @@ const parseDateYMD = (date) => {
     return dateArr;
 }
 const genOverDueDays = (todo_item) => {
-    const parsedDueDate = parseDateYMD(todo_item.getDueDate());
+    const parsedDueDate = parseDateYMD(todo_item.dueDate);
     const dueDate = new Date(parsedDueDate[0], parsedDueDate[1], parsedDueDate[2], 23, 59, 59);
     // dueDate.setHours(23, 59, 59); // set due date time to 11:59:59 pm of the due date
     const currDate = new Date();
@@ -133,51 +104,51 @@ const genitemDisplay = (todo_item) => {
 
     const displayTitle = document.createElement('div');
     displayTitle.className = 'display_title';
-    displayTitle.innerText = todo_item.getTitle();
+    displayTitle.innerText = todo_item.title;
 
     const displayDatesContainer = document.createElement('div');
     displayDatesContainer.id = 'display_datescontainer';
 
     const displayDate = document.createElement('div');
     displayDate.className = 'display_date';
-    displayDate.innerText = `Due on: ${todo_item.getDueDate()}` + " " + genOverDueNotice(todo_item);
+    displayDate.innerText = `Due on: ${todo_item.dueDate}` + " " + genOverDueNotice(todo_item);
 
 
 
     const displayCreationDate = document.createElement('div');
     displayCreationDate.id = 'display_creationdate';
-    displayCreationDate.innerText = `Created on: ${todo_item.getCreationDate()}`
+    displayCreationDate.innerText = `Created on: ${todo_item.creationDate}`
 
     displayDatesContainer.append(displayDate, displayCreationDate);
 
-    if (todo_item.getEditedDate() != 'None') {
+    if (todo_item.editedDate != 'None') {
         const displayEditedDate = document.createElement('div');
         displayEditedDate.id = 'display_editeddate';
-        displayEditedDate.innerText = `Edited on: ${todo_item.getEditedDate()}`;
+        displayEditedDate.innerText = `Edited on: ${todo_item.editedDate}`;
         displayDatesContainer.appendChild(displayEditedDate);
     }
     // genOverDueDays(todo_item);
 
     const displayPriority = document.createElement('div');
     displayPriority.className = 'display_priority';
-    displayPriority.innerText = `Priority Level: ${todo_item.getPriority()}`;
+    displayPriority.innerText = `Priority Level: ${todo_item.priority}`;
 
     const displayDesc = document.createElement('p');
-    displayDesc.innerText = todo_item.getDesc();
+    displayDesc.innerText = todo_item.description;
 
     const displayDelete = document.createElement('button');
     displayDelete.className = 'display_delete';
-    displayDelete.id = `delete_${todo_item.getTitle()}_${todo_item.getID()}`;
+    displayDelete.id = `delete_${todo_item.title}_${todo_item.id}`;
     displayDelete.value = `${todo_item.getIndex}`;
     displayDelete.innerText = 'Delete Todo';
 
     const displayEdit = document.createElement('button');
-    displayEdit.id = `edit_${todo_item.getTitle()}_${todo_item.getID()}`;
+    displayEdit.id = `edit_${todo_item.title}_${todo_item.id}`;
     displayEdit.value = `${todo_item.getIndex}`;
     displayEdit.innerText = 'Edit Todo'
 
     const displayComplete = document.createElement('button');
-    displayComplete.id = `complete_${todo_item.getTitle()}_${todo_item.getID()}`;
+    displayComplete.id = `complete_${todo_item.title}_${todo_item.id}`;
     displayComplete.value = `${todo_item.getIndex}`;
     displayComplete.innerText = 'Complete Todo'
 
@@ -202,26 +173,26 @@ const genCompletedItemDisplay = (todo_item) => {
 
     const displayTitle = document.createElement('div');
     displayTitle.className = 'display_title';
-    displayTitle.innerText = todo_item.getTitle();
+    displayTitle.innerText = todo_item.title;
 
     const displayDate = document.createElement('div');
     displayDate.className = 'display_date';
-    displayDate.innerText = `Due on: ${todo_item.getDueDate()}`;
+    displayDate.innerText = `Due on: ${todo_item.dueDate}`;
 
     const displayCompletedDate = document.createElement('div');
     displayCompletedDate.id = 'display_completedDate';
-    displayCompletedDate.innerText = `Completed on: ${todo_item.getCompletedDate()}`
+    displayCompletedDate.innerText = `Completed on: ${todo_item.completedDate}`
 
     const displayPriority = document.createElement('div');
     displayPriority.className = 'display_priority';
-    displayPriority.innerText = `Priority Level: ${todo_item.getPriority()}`;
+    displayPriority.innerText = `Priority Level: ${todo_item.priority}`;
 
     const displayDesc = document.createElement('p');
-    displayDesc.innerText = todo_item.getDesc();
+    displayDesc.innerText = todo_item.description;
 
     const displayDelete = document.createElement('button');
     displayDelete.className = 'display_delete';
-    displayDelete.id = `delete_${todo_item.getTitle()}_${todo_item.getID()}`;
+    displayDelete.id = `delete_${todo_item.title}_${todo_item.id}`;
     displayDelete.value = `${todo_item.getIndex}`;
     displayDelete.innerText = 'Delete Todo';
 
@@ -237,21 +208,21 @@ const genCompletedItemDisplay = (todo_item) => {
     return todoitem_displayBox;
 }
 const todoDeleteClick = (todo_item) => { // what happens when user click on the todo item's delete todo button
-    const todoItemDeleteButton = document.getElementById(`delete_${todo_item.getTitle()}_${todo_item.getID()}`);
+    const todoItemDeleteButton = document.getElementById(`delete_${todo_item.title}_${todo_item.id}`);
 
     todoItemDeleteButton.addEventListener('click', () => {
         todoItemDeleteButton.parentElement.remove();
         deleteItemfromDirectory(todo_item);
         console.log(`${todo_item} is deleted!`);
         
-        const listingSectHead = document.getElementById('listing_head');
-        listingSectHead.innerText =  currProjectDirectory + ' ' + `${getCurrProjectDirectoryLength(currProjectDirectory)}/200`; 
+        const listingSectHead = document.getElementById('projName_itemCount');
+        listingSectHead.innerText =  currProjectDirectory + ' ' + `${getCurrProjectDirectoryLength(currProjectDirectory)}/200` + ' Tasks'; 
         console.log('TOTAL LENGTH OF DIRECTORY AFTER DELETE: ',  getCurrProjectDirectoryLength(currProjectDirectory));
     })
 }
 
 const todoEditClick = (todo_item) => { // what happens when user click on the todo item's edit todo button
-    const todoItemEditButton = document.getElementById(`edit_${todo_item.getTitle()}_${todo_item.getID()}`);
+    const todoItemEditButton = document.getElementById(`edit_${todo_item.title}_${todo_item.id}`);
 
     todoItemEditButton.addEventListener('click', () => {
         genEditTodoForm(todo_item);
@@ -290,11 +261,12 @@ const todoEditSaveClick = (todo_item) => { // what happens when user clicks on s
 }
 
 const todoCompleteClick = (todo_item) => { //when the user clicks complete on a todo item, that single todo item is set to complete and added to the completed list
-    const todoItemCompleteButton = document.getElementById(`complete_${todo_item.getTitle()}_${todo_item.getID()}`);
+    const todoItemCompleteButton = document.getElementById(`complete_${todo_item.title}_${todo_item.id}`);
     todoItemCompleteButton.addEventListener('click', () => {
         todoItemCompleteButton.parentElement.remove();
-        todo_item.setComplete();
-        todo_item.setCompletedDate(new Date());
+        // todo_item.complete = true;
+        // todo_item.completedDate = new Date();
+        setItemComplete(todo_item);
 
         const completedList = document.getElementById('listing_complete_elem');
 
@@ -341,7 +313,14 @@ const exitProjectButtonClickListener = () => {
     })
 }
 
+const listingHeadDiv = () => {
+    const nameAndItemCountElem = document.createElement('div');
+    nameAndItemCountElem.id = 'projName_itemCount';
 
+    nameAndItemCountElem.innerText = getCurrProjectDirectoryVal() + ' ' + `${getCurrProjectDirectoryLength(currProjectDirectory)}/200` + ' Tasks';
+
+    return nameAndItemCountElem;
+}
 
 // calls clearallitemindisplay to wipe the page, then add all the todo item objects related to the current project directory
 const displayitemsInList = () => {
@@ -350,14 +329,16 @@ const displayitemsInList = () => {
     clearAllItemInDisplay();
 
     const listingSectHead = document.getElementById('listing_head');
-    listingSectHead.innerText =  getCurrProjectDirectoryVal() + ' ' + `${getCurrProjectDirectoryLength(currProjectDirectory)}/200` + ' Tasks';
+    //listingSectHead.innerText =  getCurrProjectDirectoryVal() + ' ' + `${getCurrProjectDirectoryLength(currProjectDirectory)}/200` + ' Tasks';
+    listingSectHead.innerText = '';
+    listingSectHead.appendChild(listingHeadDiv());
     listingSectHead.appendChild(sortingOptions()); // add the sorting select option into listing head
     listingSectHead.appendChild(exitProjectDirectoryButton());
 
     for (let i = 0; i < getCurrProjectDirectoryLength(currProjectDirectory); i++) {
         const currTodoItem = getCurrItem(i);
         console.log('currTodoItem', currTodoItem)
-        if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
+        if (currTodoItem.complete == false) { //adds incomplete todos to the incomplete todo list
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
             todoEditClick(currTodoItem);

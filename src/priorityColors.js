@@ -1,7 +1,7 @@
 
 
 const changebgColorByPriority = (todo_item, displayBox) => {
-    const itemPriority = todo_item.getPriority();
+    const itemPriority = todo_item.priority;
     if (itemPriority == 'Low') {
         displayBox.style.backgroundColor = 'lightgreen';
     } else if (itemPriority == 'Medium') {

@@ -89,13 +89,13 @@ const genEditTodoForm = (todo_item) => {
     editForm.id = 'edit_form';
 
     const editTitle = genFormInput('input', 'text', 'todo_edit_title', 'todo_edit_title');
-    editTitle.setAttribute('value', todo_item.getTitle());
+    editTitle.setAttribute('value', todo_item.title);
 
     const editDesc =  genFormInput('textarea', '', 'todo_edit_desc', 'todo_edit_desc');
-    editDesc.defaultValue = todo_item.getDesc();
+    editDesc.defaultValue = todo_item.description;
 
     const editDate =  genFormInput('input', 'date', 'todo_edit_duedate', 'todo_edit_duedate');
-    editDate.defaultValue = todo_item.getDueDate();
+    editDate.defaultValue = todo_item.dueDate;
 
     const editPriority_low =  genFormInput('input', 'radio', 'todo_edit_priority', 'todo_edit_priority');
     editPriority_low.setAttribute('value', 'Low');
@@ -107,10 +107,10 @@ const genEditTodoForm = (todo_item) => {
     const editPriority_high = genFormInput('input', 'radio', 'todo_edit_priority', 'todo_edit_priority');
     editPriority_high.setAttribute('value', 'High');
 
-    if (todo_item.getPriority() == 'Low') {
+    if (todo_item.priority == 'Low') {
         editPriority_low.checked = true;
     }
-    else if (todo_item.getPriority() == 'Medium') {
+    else if (todo_item.priority == 'Medium') {
         editPriority_med.checked = true;
     }
     else {

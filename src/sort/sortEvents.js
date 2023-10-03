@@ -34,7 +34,7 @@ const recencySortDisplay_otn = () => {
 
     for (let i = 0; i < getCurrProjectDirectoryLength(currProjectDirectory); i++) {
         const currTodoItem = getCurrItem(i);
-        if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
+        if (currTodoItem.complete == false) { //adds incomplete todos to the incomplete todo list
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
             todoEditClick(currTodoItem);
@@ -54,7 +54,7 @@ const recencySortDispay_nto = () => {
 
     for (let i = getCurrProjectDirectoryLength(currProjectDirectory) - 1 ; i >= 0; i--) {
         const currTodoItem = getCurrItem(i);
-        if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
+        if (currTodoItem.complete == false) { //adds incomplete todos to the incomplete todo list
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
             todoEditClick(currTodoItem);
@@ -74,8 +74,8 @@ const duedateSortDisplay_etl = () => {
 
     const sortedDirectory = (getCurrProjectDirectoryList(currProjectDirectory)).concat([]).sort(function(a, b) {
         console.log(a, b);
-        const date_a = new Date(a.getDueDate());
-        const date_b = new Date(b.getDueDate());
+        const date_a = new Date(a.dueDate);
+        const date_b = new Date(b.dueDate);
         if (date_a < date_b) {
             return -1;
         }
@@ -89,7 +89,7 @@ const duedateSortDisplay_etl = () => {
 
     for (let i = 0; i < sortedDirectory.length; i++) {
         const currTodoItem = sortedDirectory[i];
-        if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
+        if (currTodoItem.complete == false) { //adds incomplete todos to the incomplete todo list
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
             todoEditClick(currTodoItem);
@@ -108,8 +108,8 @@ const duedateSortDisplay_lte = () => {
     const contentdivcomplete = document.getElementById('listing_complete_elem');
 
     const sortedDirectory = (getCurrProjectDirectoryList(currProjectDirectory)).concat([]).sort(function(a, b) {
-        const date_a = new Date(a.getDueDate());
-        const date_b = new Date(b.getDueDate());
+        const date_a = new Date(a.dueDate);
+        const date_b = new Date(b.dueDate);
         if (date_a < date_b) {
             return 1;
         }
@@ -122,7 +122,7 @@ const duedateSortDisplay_lte = () => {
     });
     for (let i = 0; i < sortedDirectory.length; i++) {
         const currTodoItem = sortedDirectory[i];
-        if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
+        if (currTodoItem.complete == false) { //adds incomplete todos to the incomplete todo list
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
             todoEditClick(currTodoItem);
@@ -155,7 +155,7 @@ const prioritySortDisplay_lth = () => {
     });
     for (let i = 0; i < sortedDirectory.length; i++) {
         const currTodoItem = sortedDirectory[i];
-        if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
+        if (currTodoItem.complete == false) { //adds incomplete todos to the incomplete todo list
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
             todoEditClick(currTodoItem);
@@ -169,8 +169,9 @@ const prioritySortDisplay_lth = () => {
 };
 
 const convertPrioritytoNum = (item) => {
-    return item.getPriority() == 'Low' ? -1 : item.getPriority() == 'Medium' ? 0 : 1
+    return item.priority == 'Low' ? -1 : item.priority == 'Medium' ? 0 : 1
 }
+
 const prioritySortDisplay_htl = () => {
     clearAllItemInDisplay();
     const contentdiv = document.getElementById('listing_elem');
@@ -191,7 +192,7 @@ const prioritySortDisplay_htl = () => {
     });
     for (let i = 0; i < sortedDirectory.length; i++) {
         const currTodoItem = sortedDirectory[i];
-        if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
+        if (currTodoItem.complete == false) { //adds incomplete todos to the incomplete todo list
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
             todoEditClick(currTodoItem);
