@@ -3,7 +3,7 @@
 //     'project_1' : []
 // }
 
-import { currProjectDirectory } from "../todoItems";
+import { currProjectDirectory } from "../todoFuncs/todoItems";
 
 
 // const todoItemInsertionVersionObject = (title, desc, duedate, priority, creationdate, editdate, id, complete, completedate) => {

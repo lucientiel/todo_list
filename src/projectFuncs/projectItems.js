@@ -1,4 +1,4 @@
-import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInList, currProjectDirectory } from "../todoItems";
+import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInList, currProjectDirectory } from "../todoFuncs/todoItems";
 import { sortingOptions } from "../sort/sorting";
 import { addNewDirectorytoLocalStorage, checkProjectNameUniqueness} from "../storage/localStorageFuncs";
 

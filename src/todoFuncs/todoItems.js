@@ -1,13 +1,13 @@
-import { removeListingElems } from "./projectFuncs/projectItems";
+import { removeListingElems } from "../projectFuncs/projectItems";
 import { genEditTodoForm } from "./todoForms";
-import { sortingOptions } from "./sort/sorting";
-import { sortOptionChange } from "./sort/sortEvents";
-import { savedSortDisplayItemsInList } from "./sort/sortingFuncs";
-import { changebgColorByPriority } from "./priorityColors";
-import { upcomingTaskDayRange } from "./upcomingSelect";
-import { displayAllUpcomingTasks } from "./upcomingTasks";
-import { selectUpcomingDuedTasksDaysOptionClick } from "./upcomingSelectEvents";
-import { deleteItemfromDirectory, editItemInDirectory, getCurrItem, getCurrItemIndex, getCurrProjectDirectoryLength, insertItemToList, setItemComplete } from "./storage/localStorageFuncs";
+import { sortingOptions } from "../sort/sorting";
+import { sortOptionChange } from "../sort/sortEvents";
+import { savedSortDisplayItemsInList } from "../sort/sortingFuncs";
+import { changebgColorByPriority } from "../priorityColors";
+import { upcomingTaskDayRange } from "../upcomingSelect";
+import { displayAllUpcomingTasks } from "../upcomingTasks";
+import { selectUpcomingDuedTasksDaysOptionClick } from "../upcomingSelectEvents";
+import { deleteItemfromDirectory, editItemInDirectory, getCurrItem, getCurrItemIndex, getCurrProjectDirectoryLength, insertItemToList, setItemComplete } from "../storage/localStorageFuncs";
 
 let currProjectDirectory;
 

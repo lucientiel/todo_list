@@ -1,6 +1,6 @@
 import { homePageSectionSetup } from "./pageSections";
-import { genTodoItemForm } from "./todoForms";
-import { formSubmitClick } from "./todoItems";
+import { genTodoItemForm } from "./todoFuncs/todoForms";
+import { formSubmitClick } from "./todoFuncs/todoItems";
 import { genProjectForm } from "./projectFuncs/projectForm";
 import { genProjectClick, projectNavListSetup } from "./projectFuncs/projectItems";
 import { genDefaultDirectory } from "./storage/localStorageFuncs";

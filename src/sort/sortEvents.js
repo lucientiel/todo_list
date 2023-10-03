@@ -1,4 +1,4 @@
-import { displayitemsInList, clearAllItemInDisplay, currProjectDirectory, genitemDisplay, genCompletedItemDisplay, todoDeleteClick, todoEditClick, todoCompleteClick } from "../todoItems";
+import { displayitemsInList, clearAllItemInDisplay, currProjectDirectory, genitemDisplay, genCompletedItemDisplay, todoDeleteClick, todoEditClick, todoCompleteClick } from "../todoFuncs/todoItems";
 import { getCurrItem, getCurrProjectDirectoryList, getCurrProjectDirectoryLength } from "../storage/localStorageFuncs";
 
 const sortOptionChange = () => {
