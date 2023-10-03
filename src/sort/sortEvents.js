@@ -1,5 +1,5 @@
 import { displayitemsInList, clearAllItemInDisplay, currProjectDirectory, genitemDisplay, genCompletedItemDisplay, todoDeleteClick, todoEditClick, todoCompleteClick } from "../todoItems";
-import { projectListingObject } from "../projectItems";
+import { getCurrItem, getCurrProjectDirectoryList, getCurrProjectDirectoryLength } from "../storage/localStorageFuncs";
 
 const sortOptionChange = () => {
     const sortDropDown = document.getElementById('sort_order');
@@ -32,8 +32,8 @@ const recencySortDisplay_otn = () => {
     const contentdiv = document.getElementById('listing_elem');
     const contentdivcomplete = document.getElementById('listing_complete_elem');
 
-    for (let i = 0; i < (projectListingObject[currProjectDirectory]).length; i++) {
-        const currTodoItem = (projectListingObject[currProjectDirectory])[i]
+    for (let i = 0; i < getCurrProjectDirectoryLength(currProjectDirectory); i++) {
+        const currTodoItem = getCurrItem(i);
         if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
@@ -52,8 +52,8 @@ const recencySortDispay_nto = () => {
     const contentdiv = document.getElementById('listing_elem');
     const contentdivcomplete = document.getElementById('listing_complete_elem');
 
-    for (let i = (projectListingObject[currProjectDirectory]).length - 1 ; i >= 0; i--) {
-        const currTodoItem = (projectListingObject[currProjectDirectory])[i];
+    for (let i = getCurrProjectDirectoryLength(currProjectDirectory) - 1 ; i >= 0; i--) {
+        const currTodoItem = getCurrItem(i);
         if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
@@ -72,7 +72,7 @@ const duedateSortDisplay_etl = () => {
     const contentdiv = document.getElementById('listing_elem');
     const contentdivcomplete = document.getElementById('listing_complete_elem');
 
-    const sortedDirectory = (projectListingObject[currProjectDirectory]).concat([]).sort(function(a, b) {
+    const sortedDirectory = (getCurrProjectDirectoryList(currProjectDirectory)).concat([]).sort(function(a, b) {
         console.log(a, b);
         const date_a = new Date(a.getDueDate());
         const date_b = new Date(b.getDueDate());
@@ -107,7 +107,7 @@ const duedateSortDisplay_lte = () => {
     const contentdiv = document.getElementById('listing_elem');
     const contentdivcomplete = document.getElementById('listing_complete_elem');
 
-    const sortedDirectory = (projectListingObject[currProjectDirectory]).concat([]).sort(function(a, b) {
+    const sortedDirectory = (getCurrProjectDirectoryList(currProjectDirectory)).concat([]).sort(function(a, b) {
         const date_a = new Date(a.getDueDate());
         const date_b = new Date(b.getDueDate());
         if (date_a < date_b) {
@@ -140,7 +140,7 @@ const prioritySortDisplay_lth = () => {
     const contentdiv = document.getElementById('listing_elem');
     const contentdivcomplete = document.getElementById('listing_complete_elem');
 
-    const sortedDirectory = (projectListingObject[currProjectDirectory]).concat([]).sort(function(a, b) {
+    const sortedDirectory = (getCurrProjectDirectoryList(currProjectDirectory)).concat([]).sort(function(a, b) {
         const priority_a = convertPrioritytoNum(a);
         const priority_b = convertPrioritytoNum(b);
         if (priority_a < priority_b) {
@@ -176,7 +176,7 @@ const prioritySortDisplay_htl = () => {
     const contentdiv = document.getElementById('listing_elem');
     const contentdivcomplete = document.getElementById('listing_complete_elem');
 
-    const sortedDirectory = (projectListingObject[currProjectDirectory]).concat([]).sort(function(a, b) {
+    const sortedDirectory = (getCurrProjectDirectoryList(currProjectDirectory)).concat([]).sort(function(a, b) {
         const priority_a = convertPrioritytoNum(a);
         const priority_b = convertPrioritytoNum(b);
         if (priority_a < priority_b) {

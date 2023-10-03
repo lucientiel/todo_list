@@ -1,8 +1,7 @@
-import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInList } from "./todoItems";
+import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInList, currProjectDirectory } from "./todoItems";
 import { sortingOptions } from "./sort/sorting";
-const projectListingObject = {
-    'project_1' : []
-}
+import { addNewDirectorytoLocalStorage, checkProjectNameUniqueness} from "./storage/localStorageFuncs";
+
 
 const genProjectClick = () => { // create a new project directory, add it to the project listing object and call addtoProjectNavList to display on page navlist
     const projectNameForm = document.getElementById('project_name_form');
@@ -13,22 +12,13 @@ const genProjectClick = () => { // create a new project directory, add it to the
             alert('Name already used, try a different one!')
         }
         else {
-                    projectListingObject[formVals.get('project_name_input')] = [];
-        console.log(projectListingObject);
-        addtoProjectNavList(formVals.get('project_name_input'), formVals.get('project_name_input'));
+                addNewDirectorytoLocalStorage(formVals.get('project_name_input'));
+                console.log('LOCAL STORAGE', localStorage);
+                addtoProjectNavList(formVals.get('project_name_input'), formVals.get('project_name_input'));
         }
     })
 }
 
-const checkProjectNameUniqueness = (projname) => {
-    let uniquebool = true;
-    for (let key in projectListingObject) {
-        if (projname == key) {
-            uniquebool = false;
-        }
-    }
-    return uniquebool;
-}
 
 const genNavListItem = (idName, projectName) => { //gen nav list elem for project
     const listItem = document.createElement('li');
@@ -44,16 +34,16 @@ const projectNavListSetup = () => { // initialize default project nav list with 
     navList.id = 'project_name_navlist';
 
     //the defaults that will always be there on the nav bar
-    for (let key in projectListingObject) {
-        const projectNavItem = genNavListItem(key, key);
+    for (let i = 0; i < localStorage.length; i++) {
+        const project_name = localStorage.key(i);
+        const projectNavItem = genNavListItem(project_name, project_name);
         navList.appendChild(projectNavItem);
-        // genCurrDirectoryNavClick(key);
-        // addtoProjectNavList(key, key);
     }
     sideBar.append(navList);
 
-    for (let key in projectListingObject) { // only when the navlist is appended to the sidebar would the navlist become readable, when it is initialized its basically in purgatory
-        genCurrDirectoryNavClick(key);
+    for (let i = 0; i < localStorage.length; i++) {// only when the navlist is appended to the sidebar would the navlist become readable, when it is initialized its basically in purgatory
+        const project_name = localStorage.key(i);
+        genCurrDirectoryNavClick(project_name);
     }
 }
 
@@ -94,15 +84,11 @@ const genCurrDirectoryNavClick = (projectId) => { //navigating to the project us
         removeListingElems(); //removes any listing_elem div and listingcomplete_elem div from page
         addListingElems(); //adds listing_elem div and listingcomplete_elem div to page
 
-        setCurrProjectDirectoryVal(projectId);
-        // const listingSectHead = document.getElementById('listing_head');
-        // listingSectHead.innerText = projectId + ' ' + `${(projectListingObject[getCurrProjectDirectoryVal()]).length}/200`;
-        // listingSectHead.appendChild(sortingOptions());
-        // listingSectHead.innerText = "TEST ESTSETSETSE"
-        // console.log('TEST TEST TEST ETST')
+        setCurrProjectDirectoryVal(projectId); //currProjectDirectory = projectId
+   
         displayitemsInList(); // this function will update list_head content as well
-        console.log('display all project directory and item contents',projectListingObject)
+        console.log('display all project directory and item contents')
     })
 }
-//projectListingObject is currently exported to todoitems.js might want to update the way it is accessed.
-export { genProjectClick, projectNavListSetup, projectListingObject, removeListingElems, addListingElems }
+
+export { genProjectClick, projectNavListSetup, removeListingElems, addListingElems }

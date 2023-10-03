@@ -1,4 +1,4 @@
-import { projectListingObject, removeListingElems, addListingElems } from "./projectItems";
+import { removeListingElems, addListingElems } from "./projectItems";
 import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, changebgColorByPriority, displayitemsInList, setCurrProjectDirectoryVal } from "./todoItems";
 import { upcomingTaskDayRange } from "./upcomingSelect";
 
@@ -19,8 +19,10 @@ const getDateofNDaysLater = (nDays) => {
 const filterItemsWithinNDays = (currDateObj, nDays) => {
     const nDaysLaterDate = getDateofNDaysLater(nDays);
     const kvpairofProjectItemsWithinNDays = {}
-    for (let projectName in projectListingObject) {
-        const listofItemsInProjectWithinRange = (projectListingObject[projectName]).filter(function(item) {
+
+    for (let i = 0; i < localStorage.length; i++) {
+        const projectName = localStorage.key(i);
+        const listofItemsInProjectWithinRange = (JSON.parse(localStorage.getItem(projectName))).filter(function(item) {
             console.log('ITEM BEING FILTERED', item);
             // const itemDueDateParsed = (item.getDueDate()).split('-');
             const itemDueDateParsed = parseDateYMD(item.getDueDate());

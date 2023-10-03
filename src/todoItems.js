@@ -1,4 +1,4 @@
-import { projectListingObject, removeListingElems } from "./projectItems";
+import { removeListingElems } from "./projectItems";
 import { genEditTodoForm } from "./todoForms";
 import { sortingOptions } from "./sort/sorting";
 import { sortOptionChange } from "./sort/sortEvents";
@@ -7,6 +7,7 @@ import { changebgColorByPriority } from "./priorityColors";
 import { upcomingTaskDayRange } from "./upcomingSelect";
 import { displayAllUpcomingTasks } from "./upcomingTasks";
 import { selectUpcomingDuedTasksDaysOptionClick } from "./upcomingSelectEvents";
+import { deleteItemfromDirectory, editItemInDirectory, getCurrItem, getCurrItemIndex, getCurrProjectDirectoryLength, insertItemToList } from "./storage/localStorageFuncs";
 
 let currProjectDirectory;
 
@@ -18,7 +19,7 @@ const getCurrProjectDirectoryVal = () => currProjectDirectory;
 
 const genUniqueId = () => {
     let genNum = Math.floor(Math.random() * 200);
-    const existingID = projectListingObject[currProjectDirectory].map(item => item.getID());
+    const existingID = (JSON.parse(localStorage.getItem(currProjectDirectory))).map(item => item.getID()); // check all existing
     while (existingID.includes(genNum)) {
         genNum = Math.floor(Math.random() * 200);
     }
@@ -49,11 +50,13 @@ const todoItem = (title, description, duedate, priority) => {
     const setPriority = (newPriority) => _priority = newPriority;
 
     const getCreationDate = () => _creationDate;
+    const setCreationDate = (otherDate) => _creationDate = otherDate
 
     const getEditedDate = () => _editedDate;
     const setEditedDate = (newDate) => _editedDate = newDate;
 
     const getID = () => _id;
+    const setID = (otherID) => _id = otherID;
 
     const getComplete = () => _complete;
     const setComplete = () => _complete = true;
@@ -62,12 +65,11 @@ const todoItem = (title, description, duedate, priority) => {
     const setCompletedDate = (newCompleteDate) => _completedDate = newCompleteDate
 
     return { getTitle, getDesc, getDueDate, getPriority, getCreationDate, getEditedDate, getComplete, getCompletedDate, getID, 
-        setTitle, setDesc, setDueDate, setPriority, setEditedDate, setComplete, setCompletedDate}
+        setTitle, setDesc, setDueDate, setPriority, setEditedDate, setComplete, setCompletedDate,
+        setID, setCreationDate
+    }
 }
 
-const insertItemToList = (todo_item) => {
-    projectListingObject[currProjectDirectory].push(todo_item);
-}
 
 
 // DOM FUNCTIONS HERE -------------------------------------- //
@@ -82,13 +84,6 @@ const formSubmitClick = () => {
         }
         else {
             const formVals = new FormData(todoItemForm);
-            console.log(formVals);
-            console.log(
-                formVals.get('todo_item_title'),
-                formVals.get('todo_item_desc'),
-                formVals.get('todo_item_duedate'),
-                formVals.get('todo_item_priority')
-            );
             const newTodoItem = todoItem(
                 formVals.get('todo_item_title'),
                 formVals.get('todo_item_desc'),
@@ -97,7 +92,6 @@ const formSubmitClick = () => {
             );
             console.log(newTodoItem.getID())
             insertItemToList(newTodoItem);
-            console.log(projectListingObject[currProjectDirectory]);
             displayitemsInList();
         }
 
@@ -247,12 +241,12 @@ const todoDeleteClick = (todo_item) => { // what happens when user click on the 
 
     todoItemDeleteButton.addEventListener('click', () => {
         todoItemDeleteButton.parentElement.remove();
-        projectListingObject[currProjectDirectory] = (projectListingObject[currProjectDirectory]).filter(item => item.getID() != todo_item.getID());
-        console.log(`${todo_item} is deleted!`, projectListingObject[currProjectDirectory]);
-
+        deleteItemfromDirectory(todo_item);
+        console.log(`${todo_item} is deleted!`);
+        
         const listingSectHead = document.getElementById('listing_head');
-        listingSectHead.innerText =  currProjectDirectory + ' ' + `${(projectListingObject[currProjectDirectory]).length}/200`; 
-        console.log('TOTAL LENGTH OF DIRECTORY AFTER DELETE: ',  projectListingObject[currProjectDirectory].length);
+        listingSectHead.innerText =  currProjectDirectory + ' ' + `${getCurrProjectDirectoryLength(currProjectDirectory)}/200`; 
+        console.log('TOTAL LENGTH OF DIRECTORY AFTER DELETE: ',  getCurrProjectDirectoryLength(currProjectDirectory));
     })
 }
 
@@ -286,19 +280,9 @@ const todoEditSaveClick = (todo_item) => { // what happens when user clicks on s
     todoEditForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const formVals = new FormData(todoEditForm);
-        const currtodoIdx = (projectListingObject[currProjectDirectory]).indexOf(todo_item);
-        // const currtodoItem = (projectListingObject[currProjectDirectory])[currtodoIdx];
-        //  = todoItem(
-        //     formVals.get('todo_edit_title'),
-        //     formVals.get('todo_edit_desc'),
-        //     formVals.get('todo_edit_duedate'),
-        //     formVals.get('todo_edit_priority')
-        // )
-        (projectListingObject[currProjectDirectory])[currtodoIdx].setTitle(formVals.get('todo_edit_title'));
-        (projectListingObject[currProjectDirectory])[currtodoIdx].setDesc(formVals.get('todo_edit_desc'));
-        (projectListingObject[currProjectDirectory])[currtodoIdx].setDueDate(formVals.get('todo_edit_duedate'));
-        (projectListingObject[currProjectDirectory])[currtodoIdx].setPriority(formVals.get('todo_edit_priority'));
-        (projectListingObject[currProjectDirectory])[currtodoIdx].setEditedDate(new Date());
+
+        const currtodoIdx = getCurrItemIndex(todo_item);
+        editItemInDirectory(formVals, currtodoIdx);
         clearncloseDisplayModal();
         // displayitemsInList();
         savedSortDisplayItemsInList();
@@ -366,12 +350,13 @@ const displayitemsInList = () => {
     clearAllItemInDisplay();
 
     const listingSectHead = document.getElementById('listing_head');
-    listingSectHead.innerText =  getCurrProjectDirectoryVal() + ' ' + `${(projectListingObject[getCurrProjectDirectoryVal()]).length}/200` + ' Tasks';
+    listingSectHead.innerText =  getCurrProjectDirectoryVal() + ' ' + `${getCurrProjectDirectoryLength(currProjectDirectory)}/200` + ' Tasks';
     listingSectHead.appendChild(sortingOptions()); // add the sorting select option into listing head
     listingSectHead.appendChild(exitProjectDirectoryButton());
 
-    for (let i = 0; i < (projectListingObject[currProjectDirectory]).length; i++) {
-        const currTodoItem = (projectListingObject[currProjectDirectory])[i]
+    for (let i = 0; i < getCurrProjectDirectoryLength(currProjectDirectory); i++) {
+        const currTodoItem = getCurrItem(i);
+        console.log('currTodoItem', currTodoItem)
         if (currTodoItem.getComplete() == false) { //adds incomplete todos to the incomplete todo list
             contentdiv.appendChild(genitemDisplay(currTodoItem));
             todoCompleteClick(currTodoItem);
@@ -382,7 +367,7 @@ const displayitemsInList = () => {
         }
         todoDeleteClick(currTodoItem);
     }
-    console.log('display items in current project list/directory: ', (projectListingObject[currProjectDirectory]));
+
     sortOptionChange(); //add event listener for the sort option change
     exitProjectButtonClickListener();
 }
