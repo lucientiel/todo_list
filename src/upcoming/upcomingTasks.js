@@ -1,5 +1,5 @@
-import { removeListingElems, addListingElems } from "./projectFuncs/projectItems";
-import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, changebgColorByPriority, displayitemsInList, setCurrProjectDirectoryVal } from "./todoFuncs/todoItems";
+import { removeListingElems, addListingElems } from "../projectFuncs/projectItems";
+import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, changebgColorByPriority, displayitemsInList, setCurrProjectDirectoryVal } from "../todoFuncs/todoItems";
 import { upcomingTaskDayRange } from "./upcomingSelect";
 
 const getTodayDate = () => {

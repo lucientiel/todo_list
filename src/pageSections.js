@@ -1,5 +1,5 @@
-import { upcomingTaskDayRange } from "./upcomingSelect";
-import { selectUpcomingDuedTasksDaysOptionClick } from "./upcomingSelectEvents";
+import { upcomingTaskDayRange } from "./upcoming/upcomingSelect";
+import { selectUpcomingDuedTasksDaysOptionClick } from "./upcoming/upcomingSelectEvents";
 
 const sideBarSection = () => {
     const contentDiv = document.getElementById('content');

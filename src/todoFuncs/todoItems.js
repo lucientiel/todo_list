@@ -4,9 +4,9 @@ import { sortingOptions } from "../sort/sorting";
 import { sortOptionChange } from "../sort/sortEvents";
 import { savedSortDisplayItemsInList } from "../sort/sortingFuncs";
 import { changebgColorByPriority } from "../priorityColors";
-import { upcomingTaskDayRange } from "../upcomingSelect";
-import { displayAllUpcomingTasks } from "../upcomingTasks";
-import { selectUpcomingDuedTasksDaysOptionClick } from "../upcomingSelectEvents";
+import { upcomingTaskDayRange } from "../upcoming/upcomingSelect";
+import { displayAllUpcomingTasks } from "../upcoming/upcomingTasks";
+import { selectUpcomingDuedTasksDaysOptionClick } from "../upcoming/upcomingSelectEvents";
 import { deleteItemfromDirectory, editItemInDirectory, getCurrItem, getCurrItemIndex, getCurrProjectDirectoryLength, insertItemToList, setItemComplete } from "../storage/localStorageFuncs";
 
 let currProjectDirectory;

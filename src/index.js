@@ -5,7 +5,7 @@ import { genProjectForm } from "./projectFuncs/projectForm";
 import { genProjectClick, projectNavListSetup } from "./projectFuncs/projectItems";
 import { genDefaultDirectory } from "./storage/localStorageFuncs";
 import "./style.css";
-import { displayAllUpcomingTasks } from "./upcomingTasks";
+import { displayAllUpcomingTasks } from "./upcoming/upcomingTasks";
 
 
 // localStorage.removeItem('project_1');
