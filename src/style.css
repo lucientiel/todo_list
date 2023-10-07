@@ -9,7 +9,12 @@
     border-style: solid;
 }
 
-#listing_elem, #listing_complete_elem {
+#listing_elem, #listing_complete_elem, #project_name_navlist, #project_name_form, #todo_form_container{
     border-color: black;
     border-style: groove;
+}
+
+.nav_item_anchor {
+    text-decoration: none;
+    color: rgb(20, 142, 4);
 }

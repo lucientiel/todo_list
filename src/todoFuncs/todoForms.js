@@ -159,4 +159,4 @@ const genEditTodoForm = (todo_item) => {
     displayModal.appendChild(editFormContainer);
 }
 
-export { genTodoItemForm, genFormInput, genLabel, genEditTodoForm }
+export { genTodoItemForm, genFormInput, genLabel, genEditTodoForm, genlineBreak}

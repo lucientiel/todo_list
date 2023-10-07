@@ -11,11 +11,15 @@ const genProjectClick = () => { // create a new project directory, add it to the
         if (checkProjectNameUniqueness(formVals.get('project_name_input')) == false) {
             alert('Name already used, try a different one!')
         }
+        else if (formVals.get('project_name_input').length < 1) {
+            alert('A name of 1 character or greater is required to open a project.')
+        }
         else {
                 addNewDirectorytoLocalStorage(formVals.get('project_name_input'));
                 console.log('LOCAL STORAGE', localStorage);
                 addtoProjectNavList(formVals.get('project_name_input'), formVals.get('project_name_input'));
         }
+        projectNameForm.reset()
     })
 }
 
@@ -23,12 +27,20 @@ const genProjectClick = () => { // create a new project directory, add it to the
 const genNavListItem = (idName, projectName) => { //gen nav list elem for project
     const listItem = document.createElement('li');
     listItem.id = idName;
-    listItem.innerText = projectName;
+    const navItemAnchor = document.createElement('a')
+    navItemAnchor.setAttribute('href', '#');
+    navItemAnchor.setAttribute('class', 'nav_item_anchor')
+    navItemAnchor.innerText = projectName;
+    listItem.appendChild(navItemAnchor);
     return listItem;
 }
 
 const projectNavListSetup = () => { // initialize default project nav list with default items 
     const sideBar = document.getElementById('sidebar_elem');
+
+    const navListHead = document.createElement('h2');
+    navListHead.id = 'project_name_navlisthead';
+    navListHead.innerText = 'Project Directory'
 
     const navList = document.createElement('ul');
     navList.id = 'project_name_navlist';
@@ -39,7 +51,7 @@ const projectNavListSetup = () => { // initialize default project nav list with 
         const projectNavItem = genNavListItem(project_name, project_name);
         navList.appendChild(projectNavItem);
     }
-    sideBar.append(navList);
+    sideBar.append(navListHead, navList);
 
     for (let i = 0; i < localStorage.length; i++) {// only when the navlist is appended to the sidebar would the navlist become readable, when it is initialized its basically in purgatory
         const project_name = localStorage.key(i);
@@ -63,12 +75,12 @@ const removeListingElems = () => { //removes listingElem_label and listingElem, 
 
 const addListingElems = () => { //addes listing_elem and lstingcompelte_elem into page via a umbrella listing_container div
     const listing_container = document.getElementById('listing_container');
-    const listingElem_label = document.createElement('div');
+    const listingElem_label = document.createElement('h2');
     listingElem_label.innerText = 'Tasks'
     const listingElem = document.createElement('div');
     listingElem.id = 'listing_elem';
 
-    const listingComplete_label = document.createElement('div');
+    const listingComplete_label = document.createElement('h2');
     listingComplete_label.innerText = 'Completed Tasks'
     const listingCompleteElem = document.createElement('div');
     listingCompleteElem.id = 'listing_complete_elem';

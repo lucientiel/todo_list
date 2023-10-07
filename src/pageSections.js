@@ -24,7 +24,7 @@ const listingSection  = () => {
     const listingContainer = document.createElement('div');
     listingContainer.id = 'listing_container';
 
-    const listingHead = document.createElement('div');
+    const listingHead = document.createElement('h2');
     listingHead.id = 'listing_head'; //contains project name and amount of todos
     listingHead.innerText = 'Upcoming Tasks'
 

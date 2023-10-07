@@ -1,4 +1,4 @@
-import { genFormInput, genLabel } from "../todoFuncs/todoForms";
+import { genFormInput, genLabel, genlineBreak } from "../todoFuncs/todoForms";
 
 const genProjectForm = () => {
     const contentDiv = document.getElementById('sidebar_elem');
@@ -19,7 +19,9 @@ const genProjectForm = () => {
     submitButton.setAttribute('form', 'project_name_form');
     submitButton.innerText = 'Create Project';
 
-    projectNameForm.append(projectNameLabel, projectNameInput, submitButton);
+    projectNameForm.append(projectNameLabel, projectNameInput, 
+        genlineBreak(),
+        submitButton);
     formContainer.appendChild(projectNameForm);
 
     contentDiv.appendChild(formContainer);

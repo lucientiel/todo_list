@@ -65,7 +65,7 @@ const formSubmitClick = () => {
             insertItemToList(newTodoItem);
             displayitemsInList();
         }
-
+        todoItemForm.reset();
     })
     
 }
