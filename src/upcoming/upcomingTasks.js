@@ -98,6 +98,8 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
     displayPriority.className = 'display_priority';
     displayPriority.innerText = `Priority Level: ${todo_item.priority}`;
 
+    const displayDescHead = document.createElement('div');
+    displayDescHead.innerText = 'Description:';
     const displayDesc = document.createElement('p');
     displayDesc.innerText = todo_item.description;
     
@@ -115,7 +117,7 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
         displayTitle,
         displayDate,
         displayPriority,
-        displayDesc,
+        displayDescHead, displayDesc,
         displayComplete
     )
 

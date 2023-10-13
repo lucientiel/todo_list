@@ -134,6 +134,8 @@ const genitemDisplay = (todo_item) => {
     displayPriority.className = 'display_priority';
     displayPriority.innerText = `Priority Level: ${todo_item.priority}`;
 
+    const displayDescHead = document.createElement('div');
+    displayDescHead.innerText = 'Description:';
     const displayDesc = document.createElement('p');
     displayDesc.innerText = todo_item.description;
 
@@ -157,7 +159,7 @@ const genitemDisplay = (todo_item) => {
         displayTitle,
         displayDatesContainer,
         displayPriority,
-        displayDesc,
+        displayDescHead, displayDesc,
         displayDelete,
         displayEdit,
         displayComplete
@@ -188,6 +190,8 @@ const genCompletedItemDisplay = (todo_item) => {
     displayPriority.className = 'display_priority';
     displayPriority.innerText = `Priority Level: ${todo_item.priority}`;
 
+    const displayDescHead = document.createElement('div');
+    displayDescHead.innerText = 'Description:';
     const displayDesc = document.createElement('p');
     displayDesc.innerText = todo_item.description;
 
@@ -202,7 +206,7 @@ const genCompletedItemDisplay = (todo_item) => {
         displayDate,
         displayCompletedDate,
         displayPriority,
-        displayDesc,
+        displayDescHead, displayDesc,
         displayDelete,
     )
 
