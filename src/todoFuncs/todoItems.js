@@ -1,5 +1,5 @@
 import { removeListingElems } from "../projectFuncs/projectItems";
-import { genEditTodoForm } from "./todoForms";
+import { genEditTodoForm, removeTodoForm } from "./todoForms";
 import { sortingOptions } from "../sort/sorting";
 import { sortOptionChange } from "../sort/sortEvents";
 import { savedSortDisplayItemsInList } from "../sort/sortingFuncs";
@@ -302,6 +302,7 @@ const exitProjectDirectoryButton = () => {
 const exitProjectButtonClickListener = () => {
     const exitButton = document.getElementById('exitdirectory_button');
     exitButton.addEventListener('click', () => {
+        removeTodoForm();
         removeListingElems(); //removes listing elem and listing complete elem, leaving everything until listing head
         const listingContainerElem = document.getElementById('listing_container');
         const listingSectHead = document.getElementById('listing_head');

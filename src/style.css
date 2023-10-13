@@ -1,12 +1,31 @@
+body {
+    margin-bottom: 50px;
+}
+
 #todo_item_displaybox {
     border-color: black;
     border-style: dashed;
 } 
 
+#project_name_form_container {
+    margin-bottom: 10px;;
+}
 
 #sidebar_container, #listing_container {
     border-color: black;
     border-style: solid;
+}
+
+#sidebar_container {
+    float:left;
+    position:fixed;
+    width: 20vw;
+}
+
+#listing_container {
+    float:right;
+    width: 75vw;
+    margin-bottom: 50px;
 }
 
 #listing_elem, #listing_complete_elem, #project_name_navlist, #project_name_form, #todo_form_container{
@@ -22,4 +41,12 @@
 .display_title {
     font-size: 20px;
     font-weight: bold;
+}
+
+#footer_container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: gray;
+    width: 100vw;
 }

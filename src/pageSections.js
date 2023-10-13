@@ -40,10 +40,30 @@ const listingSection  = () => {
     selectUpcomingDuedTasksDaysOptionClick();
 }
 
+const footerSection = () => {
+    const contentDiv = document.getElementById('content');
+
+    const footerContainer = document.createElement('div');
+    footerContainer.id = 'footer_container';
+
+    const sourceInspirationDiv = document.createElement('div');
+    sourceInspirationDiv.innerText = 'Inspired By: '
+
+    const sourceAnchor = document.createElement('a');
+    sourceAnchor.setAttribute('href', "https://www.theodinproject.com/lessons/node-path-javascript-todo-list");
+    sourceAnchor.innerText = "The Odin Project's Todo List Project";
+
+    sourceInspirationDiv.appendChild(sourceAnchor);
+
+    footerContainer.append(sourceInspirationDiv);
+    contentDiv.append(footerContainer);
+
+}
 
 const homePageSectionSetup = () => {
     sideBarSection();
     listingSection();
+    footerSection();
 };
 
 

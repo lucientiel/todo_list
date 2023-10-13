@@ -159,4 +159,9 @@ const genEditTodoForm = (todo_item) => {
     displayModal.appendChild(editFormContainer);
 }
 
-export { genTodoItemForm, genFormInput, genLabel, genEditTodoForm, genlineBreak}
+const removeTodoForm = () => {
+    const formElem = document.getElementById('todo_form_container');
+    formElem.remove()
+}
+
+export { genTodoItemForm, genFormInput, genLabel, genEditTodoForm, genlineBreak, removeTodoForm}

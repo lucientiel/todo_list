@@ -1,9 +1,10 @@
 import { removeListingElems, addListingElems } from "../projectFuncs/projectItems";
 import { setUpcomingItemComplete } from "../storage/localStorageFuncs";
-import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, displayitemsInList, setCurrProjectDirectoryVal } from "../todoFuncs/todoItems";
+import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, displayitemsInList, setCurrProjectDirectoryVal, formSubmitClick } from "../todoFuncs/todoItems";
 import { upcomingTaskDayRange } from "./upcomingSelect";
 import { changebgColorByPriority } from "../colors/priorityColors";
 import { changeBorderColorsByDueDate } from "../colors/dateColors";
+import { genTodoItemForm } from "../todoFuncs/todoForms";
 
 const getTodayDate = () => {
     const dateObj = new Date();
@@ -131,6 +132,8 @@ const upcomingTaskProjectNameClick = (projectName) => {
     allCurrProjectNameTasks.forEach(
         (projectNameSection) => {
             projectNameSection.addEventListener('click', ()=> {
+            genTodoItemForm(); //show the todo form and add its listener
+            formSubmitClick();
             removeListingElems();
             addListingElems();
             setCurrProjectDirectoryVal(projectName);

@@ -1,6 +1,7 @@
-import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInList, currProjectDirectory } from "../todoFuncs/todoItems";
+import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInList, currProjectDirectory, formSubmitClick } from "../todoFuncs/todoItems";
 import { sortingOptions } from "../sort/sorting";
 import { addNewDirectorytoLocalStorage, checkProjectNameUniqueness} from "../storage/localStorageFuncs";
+import { genTodoItemForm } from "../todoFuncs/todoForms";
 
 
 const genProjectClick = () => { // create a new project directory, add it to the project listing object and call addtoProjectNavList to display on page navlist
@@ -93,6 +94,8 @@ const genCurrDirectoryNavClick = (projectId) => { //navigating to the project us
     const currNavItem = document.getElementById(projectId);
 
     currNavItem.addEventListener('click', () => {
+        genTodoItemForm(); // show todo creation form on sidebar
+        formSubmitClick();
         removeListingElems(); //removes any listing_elem div and listingcomplete_elem div from page
         addListingElems(); //adds listing_elem div and listingcomplete_elem div to page
 
