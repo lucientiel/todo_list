@@ -1,28 +1,15 @@
-
-// const projectListingObject = {
-//     'project_1' : []
-// }
-
 import { currProjectDirectory } from "../todoFuncs/todoItems";
 
-
-// const todoItemInsertionVersionObject = (title, desc, duedate, priority, creationdate, editdate, id, complete, completedate) => {
-//     return {
-//         "title": title,
-//         "desc" : desc,
-//         "duedate" : duedate,
-//         "priority": priority,
-//         "creationdate": creationdate,
-//         "editdate": editdate,
-//         "id" :  id,
-//         "complete": complete,
-//         "completedate": completedate
-//     }
-// }
 const parseCurrentDirectory = () => {
     const currDirectoryList = localStorage.getItem(currProjectDirectory);
     const parsedCurrDirectory = JSON.parse(currDirectoryList);
     return parsedCurrDirectory;
+}
+
+const stringifyAndSetToLocalStorage = (directory) => {
+    const stringifiedcurrProjectDirectoryList = JSON.stringify(directory);
+    console.log(stringifiedcurrProjectDirectoryList)
+    localStorage.setItem(currProjectDirectory, stringifiedcurrProjectDirectoryList)
 }
 
 const genDefaultDirectory = () => {
@@ -66,38 +53,31 @@ const getCurrProjectDirectoryLength = (directoryName) => {
 }
 
 const insertItemToList = (todo_item) => {
-    // console.log('INSERTING THIS INTO DIRECTORY', todo_item, todo_item.getTitle(), todo_item.getDesc(), todo_item.getDueDate())
-    // const currDirectoryList = localStorage.getItem(currProjectDirectory);
-    // const parsedCurrDirectoryList = JSON.parse(currDirectoryList);
     const parsedCurrDirectoryList = parseCurrentDirectory();
     //JSON may not support date object
     // const itemObjJSONver = todoItemInsertionVersionObject(todo_item.getTitle(), todo_item.getDesc(), todo_item.getDueDate(), todo_item.getPriority(), todo_item.getCreationDate(), todo_item.getEditedDate(), todo_item.id, todo_item.getComplete(), todo_item.getCompletedDate)
     parsedCurrDirectoryList.push(todo_item);
     console.log('AFTER PUSHING', parsedCurrDirectoryList, todo_item)
-    const stringifiedcurrProjectDirectoryList = JSON.stringify(parsedCurrDirectoryList)
-    console.log(stringifiedcurrProjectDirectoryList);
-    localStorage.setItem(currProjectDirectory, stringifiedcurrProjectDirectoryList);
+    // const stringifiedcurrProjectDirectoryList = JSON.stringify(parsedCurrDirectoryList)
+    // console.log(stringifiedcurrProjectDirectoryList);
+    // localStorage.setItem(currProjectDirectory, stringifiedcurrProjectDirectoryList);
+    stringifyAndSetToLocalStorage(parsedCurrDirectoryList);
 }
 
 const deleteItemfromDirectory = (todo_item) => {
-    // const currDirectoryList = localStorage.getItem(currProjectDirectory);
-    // const parsedCurrDirectoryList = JSON.parse(currDirectoryList);
     const parsedCurrDirectoryList = parseCurrentDirectory();
     const filteredDirectory = parsedCurrDirectoryList.filter(item => item.id != todo_item.id);
-    const stringifiedDirectoryList = JSON.stringify(filteredDirectory);
-    localStorage.setItem(currProjectDirectory, stringifiedDirectoryList);
+    // const stringifiedDirectoryList = JSON.stringify(filteredDirectory);
+    // localStorage.setItem(currProjectDirectory, stringifiedDirectoryList);
+    stringifyAndSetToLocalStorage(filteredDirectory)
 }
 
 const getCurrItem = (idx) => {
-    // const currDirectoryList = localStorage.getItem(currProjectDirectory);
-    // const parsedCurrDirectoryList = JSON.parse(currDirectoryList);
     const parsedCurrDirectoryList = parseCurrentDirectory();
     console.log('GET CURR ITEM', currProjectDirectory, currProjectDirectory, parsedCurrDirectoryList, idx);
     return parsedCurrDirectoryList[idx];
 }
 const getCurrItemIndex = (todo_item) => {
-    // const currDirectoryList = localStorage.getItem(currProjectDirectory);
-    // const parsedCurrDirectoryList = JSON.parse(currDirectoryList);
     const parsedCurrDirectoryList = parseCurrentDirectory();
     for (let i = 0; i < parsedCurrDirectoryList.length; i++) {
         const currItem = parsedCurrDirectoryList[i]
@@ -108,8 +88,6 @@ const getCurrItemIndex = (todo_item) => {
     }
 }
 const editItemInDirectory = (form_val, item_idx) => {
-    // const currDirectoryList = localStorage.getItem(currProjectDirectory);
-    // const parsedCurrDirectoryList = JSON.parse(currDirectoryList);
     const parsedCurrDirectoryList = parseCurrentDirectory();
     console.log('parsedCurrDirectoryList', parsedCurrDirectoryList, item_idx, parsedCurrDirectoryList[item_idx])
 
@@ -119,11 +97,27 @@ const editItemInDirectory = (form_val, item_idx) => {
     parsedCurrDirectoryList[item_idx].priority = form_val.get('todo_edit_priority');
     parsedCurrDirectoryList[item_idx].editedDate = new Date();
 
-    const stringifiedcurrProjectDirectoryList = JSON.stringify(parsedCurrDirectoryList)
-    localStorage.setItem(currProjectDirectory, stringifiedcurrProjectDirectoryList);
+    // const stringifiedcurrProjectDirectoryList = JSON.stringify(parsedCurrDirectoryList)
+    // localStorage.setItem(currProjectDirectory, stringifiedcurrProjectDirectoryList);
+    stringifyAndSetToLocalStorage(parsedCurrDirectoryList)
 }
 
-// const filterItemsWithinNDays = (currDateObj, nDays) => {
+
+
+const setItemComplete = (todo_item) => {
+    const parsedCurrDirectoryList = parseCurrentDirectory();
+    const itemStorageIndex = getCurrItemIndex(todo_item);
+    parsedCurrDirectoryList[itemStorageIndex].complete = true;
+    parsedCurrDirectoryList[itemStorageIndex].completedDate = new Date();
+
+    // const stringifiedcurrProjectDirectoryList = JSON.stringify(parsedCurrDirectoryList)
+    // localStorage.setItem(currProjectDirectory, stringifiedcurrProjectDirectoryList);
+    stringifyAndSetToLocalStorage(parsedCurrDirectoryList);
+}
+
+export { setItemComplete, getCurrItem, getCurrItemIndex, editItemInDirectory, genDefaultDirectory, addNewDirectorytoLocalStorage, checkProjectNameUniqueness, getCurrProjectDirectoryList, getCurrProjectDirectoryLength, insertItemToList, deleteItemfromDirectory}// const filterItemsWithinNDays = (currDateObj, nDays) => {
+
+
 //     const nDaysLaterDate = getDateofNDaysLater(nDays);
 //     const kvpairofProjectItemsWithinNDays = {}
 //     for (let projectName in projectListingObject) {
@@ -144,17 +138,3 @@ const editItemInDirectory = (form_val, item_idx) => {
 //     console.log('filtered upcoming', kvpairofProjectItemsWithinNDays);
 //     return kvpairofProjectItemsWithinNDays; // {projectName : [filtered List]}
 // }
-
-const setItemComplete = (todo_item) => {
-    // const currDirectoryList = localStorage.getItem(currProjectDirectory);
-    // const parsedCurrDirectoryList = JSON.parse(currDirectoryList);
-    const parsedCurrDirectoryList = parseCurrentDirectory();
-    const itemStorageIndex = getCurrItemIndex(todo_item);
-    parsedCurrDirectoryList[itemStorageIndex].complete = true;
-    parsedCurrDirectoryList[itemStorageIndex].completedDate = new Date();
-
-    const stringifiedcurrProjectDirectoryList = JSON.stringify(parsedCurrDirectoryList)
-    localStorage.setItem(currProjectDirectory, stringifiedcurrProjectDirectoryList);
-}
-
-export { setItemComplete, getCurrItem, getCurrItemIndex, editItemInDirectory, genDefaultDirectory, addNewDirectorytoLocalStorage, checkProjectNameUniqueness, getCurrProjectDirectoryList, getCurrProjectDirectoryLength, insertItemToList, deleteItemfromDirectory}
