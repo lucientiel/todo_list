@@ -55,20 +55,16 @@ const getCurrProjectDirectoryLength = (directoryName) => {
 const insertItemToList = (todo_item) => {
     const parsedCurrDirectoryList = parseCurrentDirectory();
     //JSON may not support date object
-    // const itemObjJSONver = todoItemInsertionVersionObject(todo_item.getTitle(), todo_item.getDesc(), todo_item.getDueDate(), todo_item.getPriority(), todo_item.getCreationDate(), todo_item.getEditedDate(), todo_item.id, todo_item.getComplete(), todo_item.getCompletedDate)
     parsedCurrDirectoryList.push(todo_item);
     console.log('AFTER PUSHING', parsedCurrDirectoryList, todo_item)
-    // const stringifiedcurrProjectDirectoryList = JSON.stringify(parsedCurrDirectoryList)
-    // console.log(stringifiedcurrProjectDirectoryList);
-    // localStorage.setItem(currProjectDirectory, stringifiedcurrProjectDirectoryList);
+
     stringifyAndSetToLocalStorage(parsedCurrDirectoryList);
 }
 
 const deleteItemfromDirectory = (todo_item) => {
     const parsedCurrDirectoryList = parseCurrentDirectory();
     const filteredDirectory = parsedCurrDirectoryList.filter(item => item.id != todo_item.id);
-    // const stringifiedDirectoryList = JSON.stringify(filteredDirectory);
-    // localStorage.setItem(currProjectDirectory, stringifiedDirectoryList);
+
     stringifyAndSetToLocalStorage(filteredDirectory)
 }
 
@@ -97,8 +93,6 @@ const editItemInDirectory = (form_val, item_idx) => {
     parsedCurrDirectoryList[item_idx].priority = form_val.get('todo_edit_priority');
     parsedCurrDirectoryList[item_idx].editedDate = new Date();
 
-    // const stringifiedcurrProjectDirectoryList = JSON.stringify(parsedCurrDirectoryList)
-    // localStorage.setItem(currProjectDirectory, stringifiedcurrProjectDirectoryList);
     stringifyAndSetToLocalStorage(parsedCurrDirectoryList)
 }
 
@@ -110,31 +104,7 @@ const setItemComplete = (todo_item) => {
     parsedCurrDirectoryList[itemStorageIndex].complete = true;
     parsedCurrDirectoryList[itemStorageIndex].completedDate = new Date();
 
-    // const stringifiedcurrProjectDirectoryList = JSON.stringify(parsedCurrDirectoryList)
-    // localStorage.setItem(currProjectDirectory, stringifiedcurrProjectDirectoryList);
     stringifyAndSetToLocalStorage(parsedCurrDirectoryList);
 }
 
-export { setItemComplete, getCurrItem, getCurrItemIndex, editItemInDirectory, genDefaultDirectory, addNewDirectorytoLocalStorage, checkProjectNameUniqueness, getCurrProjectDirectoryList, getCurrProjectDirectoryLength, insertItemToList, deleteItemfromDirectory}// const filterItemsWithinNDays = (currDateObj, nDays) => {
-
-
-//     const nDaysLaterDate = getDateofNDaysLater(nDays);
-//     const kvpairofProjectItemsWithinNDays = {}
-//     for (let projectName in projectListingObject) {
-//         const listofItemsInProjectWithinRange = (projectListingObject[projectName]).filter(function(item) {
-//             console.log('ITEM BEING FILTERED', item);
-//             // const itemDueDateParsed = (item.getDueDate()).split('-');
-//             const itemDueDateParsed = parseDateYMD(item.getDueDate());
-//             console.log('ITEM PARSED DATE', itemDueDateParsed);
-//             const itemDueDateObj = new Date(itemDueDateParsed[0], itemDueDateParsed[1], itemDueDateParsed[2]);
-//             console.log('ITEMDUEDATEOBJ', itemDueDateObj, 'NDAYSLATER', nDaysLaterDate);
-//             if (itemDueDateObj.getTime() <= nDaysLaterDate.getTime() && item.getComplete() != true) {
-//                 return itemDueDateObj;
-//             };
-//         });
-//         console.log('filteredList', listofItemsInProjectWithinRange);
-//         kvpairofProjectItemsWithinNDays[projectName] = listofItemsInProjectWithinRange;
-//     }
-//     console.log('filtered upcoming', kvpairofProjectItemsWithinNDays);
-//     return kvpairofProjectItemsWithinNDays; // {projectName : [filtered List]}
-// }
+export { setItemComplete, getCurrItem, getCurrItemIndex, editItemInDirectory, genDefaultDirectory, addNewDirectorytoLocalStorage, checkProjectNameUniqueness, getCurrProjectDirectoryList, getCurrProjectDirectoryLength, insertItemToList, deleteItemfromDirectory}
