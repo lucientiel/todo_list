@@ -3,12 +3,12 @@ import { genEditTodoForm } from "./todoForms";
 import { sortingOptions } from "../sort/sorting";
 import { sortOptionChange } from "../sort/sortEvents";
 import { savedSortDisplayItemsInList } from "../sort/sortingFuncs";
-import { changebgColorByPriority } from "../priorityColors";
+import { changebgColorByPriority } from "../../colors/priorityColors";
 import { upcomingTaskDayRange } from "../upcoming/upcomingSelect";
 import { displayAllUpcomingTasks } from "../upcoming/upcomingTasks";
 import { selectUpcomingDuedTasksDaysOptionClick } from "../upcoming/upcomingSelectEvents";
 import { deleteItemfromDirectory, editItemInDirectory, getCurrItem, getCurrItemIndex, getCurrProjectDirectoryLength, insertItemToList, setItemComplete } from "../storage/localStorageFuncs";
-
+import { changeBorderColorsByDueDate } from "../../colors/dateColors";
 let currProjectDirectory;
 
 const setCurrProjectDirectoryVal = (someValue) => {
@@ -109,9 +109,10 @@ const genitemDisplay = (todo_item) => {
     const displayDatesContainer = document.createElement('div');
     displayDatesContainer.className = 'display_datescontainer';
 
+    const overDueNotice = genOverDueNotice(todo_item)
     const displayDate = document.createElement('div');
     displayDate.className = 'display_date';
-    displayDate.innerText = `Due on: ${todo_item.dueDate}` + " " + genOverDueNotice(todo_item);
+    displayDate.innerText = `Due on: ${todo_item.dueDate}` + " " + overDueNotice;
 
 
 
@@ -163,7 +164,7 @@ const genitemDisplay = (todo_item) => {
     )
 
     changebgColorByPriority(todo_item, todoitem_displayBox); //adds a bg color style to the todo item container
-
+    changeBorderColorsByDueDate(overDueNotice, todoitem_displayBox)
     return todoitem_displayBox;
 }
 
@@ -360,5 +361,5 @@ export {
     displayitemsInList, clearAllItemInDisplay,
     genitemDisplay, genCompletedItemDisplay,
     todoDeleteClick, todoEditClick, todoEditCancelClick, todoCompleteClick,
-    parseDateYMD, genOverDueDays, genOverDueNotice, changebgColorByPriority
+    parseDateYMD, genOverDueDays, genOverDueNotice
 }

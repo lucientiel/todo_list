@@ -1,7 +1,9 @@
 import { removeListingElems, addListingElems } from "../projectFuncs/projectItems";
 import { setUpcomingItemComplete } from "../storage/localStorageFuncs";
-import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, changebgColorByPriority, displayitemsInList, setCurrProjectDirectoryVal } from "../todoFuncs/todoItems";
+import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, displayitemsInList, setCurrProjectDirectoryVal } from "../todoFuncs/todoItems";
 import { upcomingTaskDayRange } from "./upcomingSelect";
+import { changebgColorByPriority } from "../../colors/priorityColors";
+import { changeBorderColorsByDueDate } from "../../colors/dateColors";
 
 const getTodayDate = () => {
     const dateObj = new Date();
@@ -71,9 +73,10 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
     const displayDatesContainer = document.createElement('div');
     displayDatesContainer.className = 'display_datescontainer';
 
+    const overdueNotice = genOverDueNotice(todo_item)
     const displayDate = document.createElement('div');
     displayDate.className = 'display_date';
-    displayDate.innerText = `Due on: ${todo_item.dueDate}` + " " + genOverDueNotice(todo_item);
+    displayDate.innerText = `Due on: ${todo_item.dueDate}` + " " + overdueNotice;
 
 
 
@@ -117,7 +120,7 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
     )
 
     changebgColorByPriority(todo_item, todoitem_displayBox);
-
+    changeBorderColorsByDueDate(overdueNotice, todoitem_displayBox)
     return todoitem_displayBox;
 }
 
