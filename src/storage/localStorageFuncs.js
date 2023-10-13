@@ -137,4 +137,8 @@ const getUpcomingCurrItemIndex = (todo_item, projectName) => {
     }
 }
 
-export { setItemComplete, setUpcomingItemComplete, getCurrItem, getCurrItemIndex, editItemInDirectory, genDefaultDirectory, addNewDirectorytoLocalStorage, checkProjectNameUniqueness, getCurrProjectDirectoryList, getCurrProjectDirectoryLength, insertItemToList, deleteItemfromDirectory}
+const deleteDirectoryFromLocalStorage = (projectName) => {
+    localStorage.removeItem(projectName)
+}
+
+export { setItemComplete, setUpcomingItemComplete, getCurrItem, getCurrItemIndex, editItemInDirectory, genDefaultDirectory, addNewDirectorytoLocalStorage, checkProjectNameUniqueness, getCurrProjectDirectoryList, getCurrProjectDirectoryLength, insertItemToList, deleteItemfromDirectory, deleteDirectoryFromLocalStorage}

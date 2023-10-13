@@ -99,8 +99,11 @@ const genCurrDirectoryNavClick = (projectId) => { //navigating to the project us
     const currNavItem = document.getElementById(`${projectId}_anchor`);
 
     currNavItem.addEventListener('click', () => {
-        genTodoItemForm(); // show todo creation form on sidebar
-        formSubmitClick();
+        if (document.getElementById('todo_form_container') == null ) {
+            genTodoItemForm(); // show todo creation form on sidebar
+            formSubmitClick();
+        }
+
         removeListingElems(); //removes any listing_elem div and listingcomplete_elem div from page
         addListingElems(); //adds listing_elem div and listingcomplete_elem div to page
 

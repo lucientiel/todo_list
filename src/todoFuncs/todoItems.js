@@ -291,6 +291,23 @@ const clearAllItemInDisplay = () => {
         contentdivcomplete.removeChild(contentdivcomplete.lastChild);
     }
 }
+const exitProject = () => {
+    removeTodoForm();
+    removeListingElems(); //removes listing elem and listing complete elem, leaving everything until listing head
+    const listingContainerElem = document.getElementById('listing_container');
+    const listingSectHead = document.getElementById('listing_head');
+    listingSectHead.innerText = 'Upcoming Tasks';
+    const listingUpcoming = document.createElement('div');
+    listingUpcoming.id = 'listing_upcoming';
+
+    listingUpcoming.appendChild(upcomingTaskDayRange());
+
+    listingContainerElem.appendChild(listingUpcoming);
+
+    displayAllUpcomingTasks(0);
+    selectUpcomingDuedTasksDaysOptionClick();
+    setCurrProjectDirectoryVal(undefined);
+}
 
 const exitProjectDirectoryButton = () => {
     const exitButton = document.createElement('button') 
@@ -302,21 +319,22 @@ const exitProjectDirectoryButton = () => {
 const exitProjectButtonClickListener = () => {
     const exitButton = document.getElementById('exitdirectory_button');
     exitButton.addEventListener('click', () => {
-        removeTodoForm();
-        removeListingElems(); //removes listing elem and listing complete elem, leaving everything until listing head
-        const listingContainerElem = document.getElementById('listing_container');
-        const listingSectHead = document.getElementById('listing_head');
-        listingSectHead.innerText = 'Upcoming Tasks';
-        const listingUpcoming = document.createElement('div');
-        listingUpcoming.id = 'listing_upcoming';
+        // removeTodoForm();
+        // removeListingElems(); //removes listing elem and listing complete elem, leaving everything until listing head
+        // const listingContainerElem = document.getElementById('listing_container');
+        // const listingSectHead = document.getElementById('listing_head');
+        // listingSectHead.innerText = 'Upcoming Tasks';
+        // const listingUpcoming = document.createElement('div');
+        // listingUpcoming.id = 'listing_upcoming';
     
-        listingUpcoming.appendChild(upcomingTaskDayRange());
+        // listingUpcoming.appendChild(upcomingTaskDayRange());
 
-        listingContainerElem.appendChild(listingUpcoming);
+        // listingContainerElem.appendChild(listingUpcoming);
 
-        displayAllUpcomingTasks(0);
-        selectUpcomingDuedTasksDaysOptionClick();
-        setCurrProjectDirectoryVal(undefined);
+        // displayAllUpcomingTasks(0);
+        // selectUpcomingDuedTasksDaysOptionClick();
+        // setCurrProjectDirectoryVal(undefined);
+        exitProject()
     })
 }
 
@@ -366,5 +384,5 @@ export {
     displayitemsInList, clearAllItemInDisplay,
     genitemDisplay, genCompletedItemDisplay,
     todoDeleteClick, todoEditClick, todoEditCancelClick, todoCompleteClick,
-    parseDateYMD, genOverDueDays, genOverDueNotice
+    parseDateYMD, genOverDueDays, genOverDueNotice, exitProject
 }
