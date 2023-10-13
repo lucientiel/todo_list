@@ -9,7 +9,7 @@ import { displayAllUpcomingTasks } from "./upcoming/upcomingTasks";
 
 
 // localStorage.removeItem('project_1');
-localStorage.clear();
+// localStorage.clear();
 genDefaultDirectory();
 homePageSectionSetup();
 projectNavListSetup();

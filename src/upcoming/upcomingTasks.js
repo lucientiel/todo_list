@@ -1,4 +1,5 @@
 import { removeListingElems, addListingElems } from "../projectFuncs/projectItems";
+import { setUpcomingItemComplete } from "../storage/localStorageFuncs";
 import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, changebgColorByPriority, displayitemsInList, setCurrProjectDirectoryVal } from "../todoFuncs/todoItems";
 import { upcomingTaskDayRange } from "./upcomingSelect";
 
@@ -58,7 +59,7 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
     const projectNameAnchor = document.createElement('a');
     projectNameAnchor.setAttribute('href', '#');
     projectNameAnchor.setAttribute('class', 'nav_item_anchor')
-    projectNameAnchor.innerText = `${projectName} >>>`
+    projectNameAnchor.innerText = `Go to ${projectName} >>>`
     displayProjectName.appendChild(projectNameAnchor);
 
 
@@ -101,12 +102,18 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
     // displayComplete.id = `complete_${todo_item.getTitle()}_${todo_item.getID()}_upcoming`;
     // displayComplete.value = `${todo_item.getIndex}`;
     // displayComplete.innerText = 'Complete Task'
+
+    const displayComplete = document.createElement('button');
+    displayComplete.id = `upcoming_complete_${todo_item.title}_${todo_item.id}`;
+    displayComplete.innerText = 'Complete Task';
+
     todoitem_displayBox.append(
         displayProjectName,
         displayTitle,
         displayDate,
         displayPriority,
         displayDesc,
+        displayComplete
     )
 
     changebgColorByPriority(todo_item, todoitem_displayBox);
@@ -128,6 +135,14 @@ const upcomingTaskProjectNameClick = (projectName) => {
     });
 }
 
+const upcomingTaskCompleteClick = (todo_item, projectName) => {
+    const upcomingTaskCompleteButton = document.getElementById(`upcoming_complete_${todo_item.title}_${todo_item.id}`)
+    upcomingTaskCompleteButton.addEventListener('click', () => {
+        upcomingTaskCompleteButton.parentElement.remove();
+        setUpcomingItemComplete(todo_item, projectName);
+    })
+}
+
 const displayAllUpcomingTasks = (nDays) => {
     const upcomingSection = document.getElementById('listing_upcoming');
     const upcomingTasks = filterItemsWithinNDays(getTodayDate(), nDays);
@@ -139,6 +154,7 @@ const displayAllUpcomingTasks = (nDays) => {
         for (let i = 0; i < filteredTaskItemList.length; i++) {
             const currUpcomingTaskItemDisplay = genUpcomingItemDisplay(filteredTaskItemList[i], projectName);
             upcomingSection.append(currUpcomingTaskItemDisplay);
+            upcomingTaskCompleteClick(filteredTaskItemList[i], projectName)
         }
         const projectId = projectName; // just for clarification's sake
         upcomingTaskProjectNameClick(projectId);

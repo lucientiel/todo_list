@@ -78,7 +78,7 @@ const getCurrItemIndex = (todo_item) => {
     for (let i = 0; i < parsedCurrDirectoryList.length; i++) {
         const currItem = parsedCurrDirectoryList[i]
         if (currItem.id == todo_item.id) {
-            console.log('THIS IS THE INDEX OF THE ITEM IN THE PROJECT DIRECTORY')
+            console.log('THIS IS THE INDEX OF THE ITEM IN THE PROJECT DIRECTORY', i)
             return i
         }
     }
@@ -107,4 +107,34 @@ const setItemComplete = (todo_item) => {
     stringifyAndSetToLocalStorage(parsedCurrDirectoryList);
 }
 
-export { setItemComplete, getCurrItem, getCurrItemIndex, editItemInDirectory, genDefaultDirectory, addNewDirectorytoLocalStorage, checkProjectNameUniqueness, getCurrProjectDirectoryList, getCurrProjectDirectoryLength, insertItemToList, deleteItemfromDirectory}
+const UpcomingItemStringifyAndSetToLocalStorage = (directory, projectName) => {
+    const stringifiedcurrProjectDirectoryList = JSON.stringify(directory);
+    console.log(stringifiedcurrProjectDirectoryList)
+    localStorage.setItem(projectName, stringifiedcurrProjectDirectoryList)
+}
+
+const setUpcomingItemComplete = (todo_item, projectName) => {
+    const currDirectoryList = localStorage.getItem(projectName);
+    const parsedCurrDirectoryList = JSON.parse(currDirectoryList);
+
+    const itemStorageIndex = getUpcomingCurrItemIndex(todo_item, projectName);
+    parsedCurrDirectoryList[itemStorageIndex].complete = true;
+    parsedCurrDirectoryList[itemStorageIndex].completedDate = new Date();
+
+    UpcomingItemStringifyAndSetToLocalStorage(parsedCurrDirectoryList, projectName);
+}
+
+const getUpcomingCurrItemIndex = (todo_item, projectName) => {
+    const currDirectoryList = localStorage.getItem(projectName);
+    const parsedCurrDirectoryList = JSON.parse(currDirectoryList);
+    console.log(projectName, parsedCurrDirectoryList)
+    for (let i = 0; i < parsedCurrDirectoryList.length; i++) {
+        const currItem = parsedCurrDirectoryList[i]
+        if (currItem.id == todo_item.id) {
+            console.log('THIS IS THE INDEX OF THE ITEM IN THE PROJECT DIRECTORY', i)
+            return i
+        }
+    }
+}
+
+export { setItemComplete, setUpcomingItemComplete, getCurrItem, getCurrItemIndex, editItemInDirectory, genDefaultDirectory, addNewDirectorytoLocalStorage, checkProjectNameUniqueness, getCurrProjectDirectoryList, getCurrProjectDirectoryLength, insertItemToList, deleteItemfromDirectory}
