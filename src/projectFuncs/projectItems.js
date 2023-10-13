@@ -2,6 +2,7 @@ import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInL
 import { sortingOptions } from "../sort/sorting";
 import { addNewDirectorytoLocalStorage, checkProjectNameUniqueness} from "../storage/localStorageFuncs";
 import { genTodoItemForm } from "../todoFuncs/todoForms";
+import { deleteProjectButton, deleteProjectButtonClick } from "./projectDelete";
 
 
 const genProjectClick = () => { // create a new project directory, add it to the project listing object and call addtoProjectNavList to display on page navlist
@@ -29,6 +30,7 @@ const genNavListItem = (idName, projectName) => { //gen nav list elem for projec
     const listItem = document.createElement('li');
     listItem.id = idName;
     const navItemAnchor = document.createElement('a')
+    navItemAnchor.id = `${projectName}_anchor`;
     navItemAnchor.setAttribute('href', '#');
     navItemAnchor.setAttribute('class', 'nav_item_anchor')
     navItemAnchor.innerText = projectName;
@@ -50,6 +52,7 @@ const projectNavListSetup = () => { // initialize default project nav list with 
     for (let i = 0; i < localStorage.length; i++) {
         const project_name = localStorage.key(i);
         const projectNavItem = genNavListItem(project_name, project_name);
+        projectNavItem.appendChild(deleteProjectButton(project_name));
         navList.appendChild(projectNavItem);
     }
     sideBar.append(navListHead, navList);
@@ -57,6 +60,8 @@ const projectNavListSetup = () => { // initialize default project nav list with 
     for (let i = 0; i < localStorage.length; i++) {// only when the navlist is appended to the sidebar would the navlist become readable, when it is initialized its basically in purgatory
         const project_name = localStorage.key(i);
         genCurrDirectoryNavClick(project_name);
+        deleteProjectButtonClick(project_name);
+
     }
 }
 
@@ -91,7 +96,7 @@ const addListingElems = () => { //addes listing_elem and lstingcompelte_elem int
 }
 
 const genCurrDirectoryNavClick = (projectId) => { //navigating to the project user clicks on
-    const currNavItem = document.getElementById(projectId);
+    const currNavItem = document.getElementById(`${projectId}_anchor`);
 
     currNavItem.addEventListener('click', () => {
         genTodoItemForm(); // show todo creation form on sidebar
