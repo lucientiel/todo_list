@@ -53,7 +53,15 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
 
     const displayProjectName = document.createElement('div');
     displayProjectName.id = `display_projectName_${projectName}`;
-    displayProjectName.innerText = `${projectName} >>>`;
+    // displayProjectName.innerText = ;
+
+    const projectNameAnchor = document.createElement('a');
+    projectNameAnchor.setAttribute('href', '#');
+    projectNameAnchor.setAttribute('class', 'nav_item_anchor')
+    projectNameAnchor.innerText = `${projectName} >>>`
+    displayProjectName.appendChild(projectNameAnchor);
+
+
 
     const displayTitle = document.createElement('div');
     displayTitle.className = 'display_title';

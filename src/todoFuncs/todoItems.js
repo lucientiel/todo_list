@@ -90,9 +90,9 @@ const genOverDueDays = (todo_item) => {
 const genOverDueNotice = (todo_item) => {
     const overdueDays = genOverDueDays(todo_item);
     if (overdueDays == 0) {
-        return '*Due today!*';
+        return '*DUE TODAY*';
     } else if (overdueDays < 0) {
-        return `*${(overdueDays*-1).toString()} days overdue!*`;
+        return `*${(overdueDays*-1).toString()} DAYS OVERDUE*`;
     } else {
         return `*Due in ${overdueDays} days.*`;
     }
