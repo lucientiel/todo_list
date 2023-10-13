@@ -49,7 +49,7 @@ const clearUpcomingSectionList = () => {
 
 const genUpcomingItemDisplay = (todo_item, projectName) => {
     const todoitem_displayBox = document.createElement('div');
-    todoitem_displayBox.id = 'todo_item_displaybox'
+    todoitem_displayBox.className = 'todo_item_displaybox'
 
     const displayProjectName = document.createElement('div');
     displayProjectName.id = `display_projectName_${projectName}`;
@@ -68,7 +68,7 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
     displayTitle.innerText = todo_item.title;
 
     const displayDatesContainer = document.createElement('div');
-    displayDatesContainer.id = 'display_datescontainer';
+    displayDatesContainer.className = 'display_datescontainer';
 
     const displayDate = document.createElement('div');
     displayDate.className = 'display_date';
@@ -77,14 +77,14 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
 
 
     const displayCreationDate = document.createElement('div');
-    displayCreationDate.id = 'display_creationdate';
+    displayCreationDate.className = 'display_creationdate';
     displayCreationDate.innerText = `Created on: ${todo_item.creationDate}`
 
     displayDatesContainer.append(displayDate, displayCreationDate);
 
     if (todo_item.editedDate != 'None') {
         const displayEditedDate = document.createElement('div');
-        displayEditedDate.id = 'display_editeddate';
+        displayEditedDate.className = 'display_editeddate';
         displayEditedDate.innerText = `Edited on: ${todo_item.editedDate}`;
         displayDatesContainer.appendChild(displayEditedDate);
     }
