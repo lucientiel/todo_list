@@ -3,12 +3,12 @@ import { genEditTodoForm } from "./todoForms";
 import { sortingOptions } from "../sort/sorting";
 import { sortOptionChange } from "../sort/sortEvents";
 import { savedSortDisplayItemsInList } from "../sort/sortingFuncs";
-import { changebgColorByPriority } from "../../colors/priorityColors";
+import { changebgColorByPriority } from "../colors/priorityColors";
 import { upcomingTaskDayRange } from "../upcoming/upcomingSelect";
 import { displayAllUpcomingTasks } from "../upcoming/upcomingTasks";
 import { selectUpcomingDuedTasksDaysOptionClick } from "../upcoming/upcomingSelectEvents";
 import { deleteItemfromDirectory, editItemInDirectory, getCurrItem, getCurrItemIndex, getCurrProjectDirectoryLength, insertItemToList, setItemComplete } from "../storage/localStorageFuncs";
-import { changeBorderColorsByDueDate } from "../../colors/dateColors";
+import { changeBorderColorsByDueDate } from "../colors/dateColors";
 let currProjectDirectory;
 
 const setCurrProjectDirectoryVal = (someValue) => {

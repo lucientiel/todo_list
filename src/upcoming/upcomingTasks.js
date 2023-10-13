@@ -2,8 +2,8 @@ import { removeListingElems, addListingElems } from "../projectFuncs/projectItem
 import { setUpcomingItemComplete } from "../storage/localStorageFuncs";
 import { genitemDisplay, parseDateYMD, genOverDueDays, genOverDueNotice, displayitemsInList, setCurrProjectDirectoryVal } from "../todoFuncs/todoItems";
 import { upcomingTaskDayRange } from "./upcomingSelect";
-import { changebgColorByPriority } from "../../colors/priorityColors";
-import { changeBorderColorsByDueDate } from "../../colors/dateColors";
+import { changebgColorByPriority } from "../colors/priorityColors";
+import { changeBorderColorsByDueDate } from "../colors/dateColors";
 
 const getTodayDate = () => {
     const dateObj = new Date();
