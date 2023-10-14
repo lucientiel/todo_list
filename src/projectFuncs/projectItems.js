@@ -68,8 +68,12 @@ const projectNavListSetup = () => { // initialize default project nav list with 
 const addtoProjectNavList = (idName, projectName) => { // add individual submitted project directory to display on navlist
     const navList = document.getElementById('project_name_navlist');
 
-    navList.append(genNavListItem(idName, projectName));
+    const navItem = genNavListItem(idName, projectName);
+    const navItemDeleteButton = deleteProjectButton(projectName)
+    navItem.appendChild(navItemDeleteButton)
+    navList.append(navItem);
     genCurrDirectoryNavClick(idName);
+    deleteProjectButtonClick(projectName);
 };
 
 const removeListingElems = () => { //removes listingElem_label and listingElem, as well as listingComplete_label and listingCompleteElem
