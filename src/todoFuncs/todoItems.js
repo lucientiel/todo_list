@@ -100,7 +100,7 @@ const genOverDueNotice = (todo_item) => {
 // This function takes a todo object and adds its dom to the page
 const genitemDisplay = (todo_item) => {
     const todoitem_displayBox = document.createElement('div');
-    todoitem_displayBox.className = 'todo_item_displaybox'
+    todoitem_displayBox.className = 'todo_item_displaybox';
 
     const displayTitle = document.createElement('div');
     displayTitle.className = 'display_title';
