@@ -64,8 +64,6 @@ const genTodoItemForm = () => {
     createItemForm.append(
         titleLabel, titleInput,
         genlineBreak(),
-        descLabel, descInput,
-        genlineBreak(),
         dueDateLabel, dueDateInput,
         genlineBreak(),
         priorityLabel,
@@ -75,6 +73,8 @@ const genTodoItemForm = () => {
         priorityInput_med, priority_med_label,
         genlineBreak(),
         priorityInput_high, priority_high_label,
+        genlineBreak(),
+        descLabel, descInput,
         genlineBreak(),
         submitButton
     );
@@ -147,8 +147,7 @@ const genEditTodoForm = (todo_item) => {
     editForm.append(
         editTitleLabel, editTitle,
         genlineBreak(),
-        editDescLabel, editDesc,
-        genlineBreak(),
+
         editDueDateLabel, editDate, 
         genlineBreak(),
         editPriorityLabel,
@@ -158,6 +157,8 @@ const genEditTodoForm = (todo_item) => {
         editPriority_med_label, editPriority_med,
         genlineBreak(),
         editPriority_high_label, editPriority_high,
+        genlineBreak(),
+        editDescLabel, editDesc,
         genlineBreak(),
         cancelButton, saveEditButton
     )

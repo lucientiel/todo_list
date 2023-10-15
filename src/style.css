@@ -7,9 +7,11 @@ body {
     color: white;
 }
 
-#todo_item_displaybox {
+.todo_item_displaybox {
     border-color: black;
     border-style: dashed;
+    color: black;
+    margin-bottom: 10px;
 } 
 
 #project_name_form_container {
@@ -57,10 +59,10 @@ body {
     position: fixed;
     bottom: 0;
     left: 0;
-    background-color: gray;
+    background-color: rgba(23, 22, 22, 0.6);
     width: 100vw;
 }
 
-.todo_item_displaybox {
-    color: black;
+a {
+    color:rgb(20, 142, 4)
 }
