@@ -6,6 +6,10 @@ const genProjectForm = () => {
     const formContainer = document.createElement('div');
     formContainer.id = 'project_name_form_container';
 
+    const projectNameFormHead = document.createElement('h2');
+    projectNameFormHead.className = 'project_name_form_head';
+    projectNameFormHead.innerText = 'Create a Project'
+
     const projectNameForm = document.createElement('form');
     projectNameForm.id = 'project_name_form'
 
@@ -22,7 +26,7 @@ const genProjectForm = () => {
     projectNameForm.append(projectNameLabel, projectNameInput, 
         genlineBreak(),
         submitButton);
-    formContainer.appendChild(projectNameForm);
+    formContainer.append(projectNameFormHead, projectNameForm);
 
     contentDiv.appendChild(formContainer);
 }

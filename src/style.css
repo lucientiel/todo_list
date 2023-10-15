@@ -38,7 +38,7 @@ body {
     margin-bottom: 50px;
 }
 
-#listing_elem, #listing_complete_elem, #project_name_navlist, #project_name_form, #todo_form_container{
+#listing_elem, #listing_complete_elem, #project_name_navlist, #project_name_form, #todo_item_form {
     border-color: black;
     border-style: groove;
 }

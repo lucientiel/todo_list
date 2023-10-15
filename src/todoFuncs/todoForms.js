@@ -25,6 +25,10 @@ const genTodoItemForm = () => {
     const formContainer = document.createElement('div');
     formContainer.id = 'todo_form_container';
 
+    const itemFormhead = document.createElement('h2');
+    itemFormhead.className = 'todo_form_head';
+    itemFormhead.innerText = 'Create a Task'
+
     const createItemForm = document.createElement('form');
     createItemForm.id = 'todo_item_form'
 
@@ -75,7 +79,7 @@ const genTodoItemForm = () => {
         submitButton
     );
 
-    formContainer.append(createItemForm);
+    formContainer.append(itemFormhead, createItemForm);
 
     contentDiv.append(formContainer);
 }
@@ -84,6 +88,10 @@ const genEditTodoForm = (todo_item) => {
 
     const editFormContainer = document.createElement('div');
     editFormContainer.id = 'edit_form_container';
+
+    const editItemFormhead = document.createElement('h2');
+    editItemFormhead.className = 'edit_form_head';
+    editItemFormhead.innerText = 'Edit Your Task'
 
     const editForm = document.createElement('form');
     editForm.id = 'edit_form';
@@ -153,7 +161,7 @@ const genEditTodoForm = (todo_item) => {
         genlineBreak(),
         cancelButton, saveEditButton
     )
-    editFormContainer.appendChild(editForm);
+    editFormContainer.append(editItemFormhead, editForm);
 
     const displayModal = document.getElementById('display_modal');
     displayModal.appendChild(editFormContainer);
