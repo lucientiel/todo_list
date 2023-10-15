@@ -319,22 +319,7 @@ const exitProjectDirectoryButton = () => {
 const exitProjectButtonClickListener = () => {
     const exitButton = document.getElementById('exitdirectory_button');
     exitButton.addEventListener('click', () => {
-        // removeTodoForm();
-        // removeListingElems(); //removes listing elem and listing complete elem, leaving everything until listing head
-        // const listingContainerElem = document.getElementById('listing_container');
-        // const listingSectHead = document.getElementById('listing_head');
-        // listingSectHead.innerText = 'Upcoming Tasks';
-        // const listingUpcoming = document.createElement('div');
-        // listingUpcoming.id = 'listing_upcoming';
-    
-        // listingUpcoming.appendChild(upcomingTaskDayRange());
-
-        // listingContainerElem.appendChild(listingUpcoming);
-
-        // displayAllUpcomingTasks(0);
-        // selectUpcomingDuedTasksDaysOptionClick();
-        // setCurrProjectDirectoryVal(undefined);
-        exitProject()
+        exitProject();
     })
 }
 

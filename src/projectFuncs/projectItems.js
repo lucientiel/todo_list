@@ -1,5 +1,4 @@
-import { getCurrProjectDirectoryVal, setCurrProjectDirectoryVal, displayitemsInList, currProjectDirectory, formSubmitClick } from "../todoFuncs/todoItems";
-import { sortingOptions } from "../sort/sorting";
+import { setCurrProjectDirectoryVal, displayitemsInList, formSubmitClick } from "../todoFuncs/todoItems";
 import { addNewDirectorytoLocalStorage, checkProjectNameUniqueness} from "../storage/localStorageFuncs";
 import { genTodoItemForm } from "../todoFuncs/todoForms";
 import { deleteProjectButton, deleteProjectButtonClick } from "./projectDelete";
