@@ -118,14 +118,14 @@ const genitemDisplay = (todo_item) => {
 
     const displayCreationDate = document.createElement('div');
     displayCreationDate.className = 'display_creationdate';
-    displayCreationDate.innerText = `Created on: ${todo_item.creationDate}`
+    displayCreationDate.innerText = `Created on: ${todo_item.creationDate.split('T')[0]}`
 
     displayDatesContainer.append(displayDate, displayCreationDate);
 
     if (todo_item.editedDate != 'None') {
         const displayEditedDate = document.createElement('div');
         displayEditedDate.className = 'display_editeddate';
-        displayEditedDate.innerText = `Edited on: ${todo_item.editedDate}`;
+        displayEditedDate.innerText = `Edited on: ${todo_item.editedDate.split('T')[0]}`;
         displayDatesContainer.appendChild(displayEditedDate);
     }
     // genOverDueDays(todo_item);
