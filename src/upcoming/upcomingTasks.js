@@ -99,15 +99,15 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
     displayPriority.className = 'display_priority';
     displayPriority.innerText = `Priority Level: ${todo_item.priority}`;
 
+    const displayDesc = document.createElement('div');
+    
     const displayDescHead = document.createElement('div');
     displayDescHead.innerText = 'Description:';
-    const displayDesc = document.createElement('p');
-    displayDesc.innerText = todo_item.description;
+    const displayDescContent = document.createElement('p');
+    displayDescContent.className = 'desc_content'
+    displayDescContent.innerText = todo_item.description;
     
-    // const displayComplete = document.createElement('button');
-    // displayComplete.id = `complete_${todo_item.getTitle()}_${todo_item.getID()}_upcoming`;
-    // displayComplete.value = `${todo_item.getIndex}`;
-    // displayComplete.innerText = 'Complete Task'
+    displayDesc.append(displayDescHead, displayDescContent)
 
     const displayComplete = document.createElement('button');
     displayComplete.id = `upcoming_complete_${todo_item.title}_${todo_item.id}`;
@@ -118,7 +118,7 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
         displayTitle,
         displayDate,
         displayPriority,
-        displayDescHead, displayDesc,
+        displayDesc,
         displayComplete
     )
 

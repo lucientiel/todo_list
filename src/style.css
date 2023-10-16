@@ -8,14 +8,34 @@ body {
 }
 
 .todo_item_displaybox {
-    border-color: black;
-    border-style: dashed;
+    /* border-color: black;
+    border-style: dashed; */
+    border-radius: 10px;
+    padding: 5px;
     color: black;
     margin-bottom: 10px;
+
+    display: inline-block;
+    vertical-align: top;
+    width: 300px;
+
+    margin: 8px;
 } 
+
+.desc_content {
+    width: 300px;
+    word-break: break-all;
+}
 
 #project_name_form_container {
     margin-bottom: 10px;;
+}
+.project_list_item{
+    position: relative;
+}
+.delete_project_button{
+    position:absolute;
+    right: 0;
 }
 
 #sidebar_container, #listing_container {
@@ -43,6 +63,8 @@ body {
 #listing_elem, #listing_complete_elem, #project_name_navlist, #project_name_form, #todo_item_form {
     border-color: black;
     border-style: groove;
+    border-left: none;
+    border-right: none;
 }
 
 .nav_item_anchor {
@@ -55,6 +77,15 @@ body {
     font-weight: bold;
 }
 
+/* .display_description {
+    position: absolute;
+    right: 0;
+    top: 0;
+    /* font-size: larger; */
+/* } */
+.desc_content {
+    margin-top: 5px;
+}
 #footer_container {
     position: fixed;
     bottom: 0;

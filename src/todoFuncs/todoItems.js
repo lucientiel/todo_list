@@ -134,10 +134,16 @@ const genitemDisplay = (todo_item) => {
     displayPriority.className = 'display_priority';
     displayPriority.innerText = `Priority Level: ${todo_item.priority}`;
 
+    const displayDesc = document.createElement('div');
+    displayDesc.className = 'display_description';
+
     const displayDescHead = document.createElement('div');
     displayDescHead.innerText = 'Description:';
-    const displayDesc = document.createElement('p');
-    displayDesc.innerText = todo_item.description;
+    const displayDescContent = document.createElement('p');
+    displayDescContent.className = 'desc_content'
+    displayDescContent.innerText = todo_item.description;
+
+    displayDesc.append(displayDescHead, displayDescContent);
 
     const displayDelete = document.createElement('button');
     displayDelete.className = 'display_delete';
@@ -159,7 +165,7 @@ const genitemDisplay = (todo_item) => {
         displayTitle,
         displayDatesContainer,
         displayPriority,
-        displayDescHead, displayDesc,
+        displayDesc,
         displayDelete,
         displayEdit,
         displayComplete
@@ -172,7 +178,8 @@ const genitemDisplay = (todo_item) => {
 
 const genCompletedItemDisplay = (todo_item) => {
     const todoitem_displayBox = document.createElement('div');
-    todoitem_displayBox.id = 'todo_item_displaybox'
+    todoitem_displayBox.className = 'todo_item_displaybox'
+    todoitem_displayBox.style.backgroundColor = "gray";
 
     const displayTitle = document.createElement('div');
     displayTitle.className = 'display_title';
@@ -190,10 +197,16 @@ const genCompletedItemDisplay = (todo_item) => {
     displayPriority.className = 'display_priority';
     displayPriority.innerText = `Priority Level: ${todo_item.priority}`;
 
+    const displayDesc = document.createElement('div');
+    displayDesc.className = 'display_description';
+
     const displayDescHead = document.createElement('div');
     displayDescHead.innerText = 'Description:';
-    const displayDesc = document.createElement('p');
-    displayDesc.innerText = todo_item.description;
+    const displayDescContent = document.createElement('p');
+    displayDescContent.className = 'desc_content'
+    displayDescContent.innerText = todo_item.description;
+
+    displayDesc.append(displayDescHead, displayDescContent);
 
     const displayDelete = document.createElement('button');
     displayDelete.className = 'display_delete';
@@ -206,7 +219,7 @@ const genCompletedItemDisplay = (todo_item) => {
         displayDate,
         displayCompletedDate,
         displayPriority,
-        displayDescHead, displayDesc,
+        displayDesc,
         displayDelete,
     )
 

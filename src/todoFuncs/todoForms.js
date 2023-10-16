@@ -74,7 +74,7 @@ const genTodoItemForm = () => {
         genlineBreak(),
         priorityInput_high, priority_high_label,
         genlineBreak(),
-        descLabel, descInput,
+        descLabel, genlineBreak(), descInput,
         genlineBreak(),
         submitButton
     );
@@ -158,7 +158,7 @@ const genEditTodoForm = (todo_item) => {
         genlineBreak(),
         editPriority_high_label, editPriority_high,
         genlineBreak(),
-        editDescLabel, editDesc,
+        editDescLabel, genlineBreak(), editDesc,
         genlineBreak(),
         cancelButton, saveEditButton
     )

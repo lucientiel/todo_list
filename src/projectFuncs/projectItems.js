@@ -28,10 +28,11 @@ const genProjectClick = () => { // create a new project directory, add it to the
 const genNavListItem = (idName, projectName) => { //gen nav list elem for project
     const listItem = document.createElement('li');
     listItem.id = idName;
-    const navItemAnchor = document.createElement('a')
+    listItem.className = 'project_list_item';
+    const navItemAnchor = document.createElement('a');
     navItemAnchor.id = `${projectName}_anchor`;
     navItemAnchor.setAttribute('href', '#');
-    navItemAnchor.setAttribute('class', 'nav_item_anchor')
+    navItemAnchor.setAttribute('class', 'nav_item_anchor');
     navItemAnchor.innerText = projectName;
     listItem.appendChild(navItemAnchor);
     return listItem;
