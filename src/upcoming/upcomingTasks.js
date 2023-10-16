@@ -102,7 +102,7 @@ const genUpcomingItemDisplay = (todo_item, projectName) => {
     const displayDesc = document.createElement('div');
     
     const displayDescHead = document.createElement('div');
-    displayDescHead.innerText = 'Description:';
+    displayDescHead.innerText = 'Notes:';
     const displayDescContent = document.createElement('p');
     displayDescContent.className = 'desc_content'
     displayDescContent.innerText = todo_item.description;

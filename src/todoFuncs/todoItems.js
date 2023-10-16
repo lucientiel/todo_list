@@ -138,7 +138,7 @@ const genitemDisplay = (todo_item) => {
     displayDesc.className = 'display_description';
 
     const displayDescHead = document.createElement('div');
-    displayDescHead.innerText = 'Description:';
+    displayDescHead.innerText = 'Notes:';
     const displayDescContent = document.createElement('p');
     displayDescContent.className = 'desc_content'
     displayDescContent.innerText = todo_item.description;
@@ -201,7 +201,7 @@ const genCompletedItemDisplay = (todo_item) => {
     displayDesc.className = 'display_description';
 
     const displayDescHead = document.createElement('div');
-    displayDescHead.innerText = 'Description:';
+    displayDescHead.innerText = 'Notes:';
     const displayDescContent = document.createElement('p');
     displayDescContent.className = 'desc_content'
     displayDescContent.innerText = todo_item.description;

@@ -34,8 +34,10 @@ const genTodoItemForm = () => {
 
     const titleInput = genFormInput('input', 'text', 'todo_item_title', 'todo_item_title');
     titleInput.required = true;
+    titleInput.placeholder = 'E.g Project_Task_1'
     const descInput = genFormInput('textarea', '', 'todo_item_desc', 'todo_item_desc');
     descInput.required = true;
+    descInput.placeholder = 'E.g Create a task for project...'
     const dueDateInput = genFormInput('input', 'date', 'todo_item_duedate', 'todo_item_duedate');
     dueDateInput.required = true;
     const priorityInput_low = genFormInput('input', 'radio', 'todo_item_priority', 'todo_item_priority');
@@ -47,9 +49,9 @@ const genTodoItemForm = () => {
     priorityInput_high.setAttribute('value', 'High');
 
     const titleLabel = genLabel('todo_item_title', 'Title: ');
-    const descLabel =  genLabel('todo_item_desc', 'Description: ');
+    const descLabel =  genLabel('todo_item_desc', 'Notes: ');
     const dueDateLabel =  genLabel('todo_item_duedate', 'Due Date: ');
-    const priorityLabel =  genLabel('todo_item_priority', 'Priority: ');
+    const priorityLabel =  genLabel('todo_item_priority', 'Priority Level: ');
     const priority_low_label =  genLabel('todo_item_title', 'Low');
     const priority_med_label=  genLabel('todo_item_title', 'Medium');
     const priority_high_label =  genLabel('todo_item_title', 'High');
@@ -126,9 +128,9 @@ const genEditTodoForm = (todo_item) => {
     }
 
     const editTitleLabel = genLabel('todo_edit_title', 'Title: ');
-    const editDescLabel =  genLabel('todo_edit_desc', 'Description: ');
+    const editDescLabel =  genLabel('todo_edit_desc', 'Notes: ');
     const editDueDateLabel =  genLabel('todo_edit_duedate', 'Due Date: ');
-    const editPriorityLabel =  genLabel('todo_edit_priority', 'Priority: ');
+    const editPriorityLabel =  genLabel('todo_edit_priority', 'Priority Level: ');
     const editPriority_low_label =  genLabel('todo_edit_title', 'Low');
     const editPriority_med_label=  genLabel('todo_edit_title', 'Medium');
     const editPriority_high_label =  genLabel('todo_edit_title', 'High');

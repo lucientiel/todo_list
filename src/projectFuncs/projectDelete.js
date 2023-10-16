@@ -5,7 +5,7 @@ const deleteProjectButton = (projectName) => {
     const delProjectButtonElem = document.createElement('button');
     delProjectButtonElem.className = 'delete_project_button'
     delProjectButtonElem.id = `delete_${projectName}`
-    delProjectButtonElem.innerText = 'Delete';
+    delProjectButtonElem.innerText = 'Delete Project';
 
     return delProjectButtonElem
 }
