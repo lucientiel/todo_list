@@ -15,6 +15,7 @@ const genProjectForm = () => {
 
 
     const projectNameInput = genFormInput('input', 'text', 'project_name_input', 'project_name_input');
+    projectNameInput.placeholder = 'E.g. Project_2';
     const projectNameLabel = genLabel('project_name_input', 'Project Name: ');
 
     const submitButton = document.createElement('button');
