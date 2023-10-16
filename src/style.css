@@ -74,7 +74,6 @@ body {
 
 .nav_item_anchor {
     text-decoration: none;
-    color: rgb(20, 142, 4);
 }
 
 .display_title {
@@ -94,7 +93,7 @@ body {
 }
 
 a {
-    color:rgb(20, 142, 4)
+    color:rgb(30, 192, 9)
 }
 
 button {
@@ -103,6 +102,7 @@ button {
     border-radius: 5px;
     padding: 5px;
     margin-right: 10px;
+    width: 100px;
 }
 
 li {
@@ -126,6 +126,15 @@ textarea {
     width: 95%;
     height: 50px;
     resize: none;
+}
+
+select {
+    border: none;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #display_modal {

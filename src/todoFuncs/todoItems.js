@@ -149,17 +149,17 @@ const genitemDisplay = (todo_item) => {
     displayDelete.className = 'display_delete';
     displayDelete.id = `delete_${todo_item.title}_${todo_item.id}`;
     displayDelete.value = `${todo_item.getIndex}`;
-    displayDelete.innerText = 'Delete Todo';
+    displayDelete.innerText = 'Delete Task';
 
     const displayEdit = document.createElement('button');
     displayEdit.id = `edit_${todo_item.title}_${todo_item.id}`;
     displayEdit.value = `${todo_item.getIndex}`;
-    displayEdit.innerText = 'Edit Todo'
+    displayEdit.innerText = 'Edit Task'
 
     const displayComplete = document.createElement('button');
     displayComplete.id = `complete_${todo_item.title}_${todo_item.id}`;
     displayComplete.value = `${todo_item.getIndex}`;
-    displayComplete.innerText = 'Complete Todo'
+    displayComplete.innerText = 'Complete Task'
 
     todoitem_displayBox.append(
         displayTitle,
@@ -212,7 +212,7 @@ const genCompletedItemDisplay = (todo_item) => {
     displayDelete.className = 'display_delete';
     displayDelete.id = `delete_${todo_item.title}_${todo_item.id}`;
     displayDelete.value = `${todo_item.getIndex}`;
-    displayDelete.innerText = 'Delete Todo';
+    displayDelete.innerText = 'Delete Task';
 
     todoitem_displayBox.append(
         displayTitle,
