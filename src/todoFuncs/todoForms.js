@@ -46,10 +46,10 @@ const genTodoItemForm = () => {
     const priorityInput_high = genFormInput('input', 'radio', 'todo_item_priority', 'todo_item_priority');
     priorityInput_high.setAttribute('value', 'High');
 
-    const titleLabel = genLabel('todo_item_title', 'Title');
-    const descLabel =  genLabel('todo_item_desc', 'Description');
-    const dueDateLabel =  genLabel('todo_item_duedate', 'Due Date');
-    const priorityLabel =  genLabel('todo_item_priority', 'Priority');
+    const titleLabel = genLabel('todo_item_title', 'Title: ');
+    const descLabel =  genLabel('todo_item_desc', 'Description: ');
+    const dueDateLabel =  genLabel('todo_item_duedate', 'Due Date: ');
+    const priorityLabel =  genLabel('todo_item_priority', 'Priority: ');
     const priority_low_label =  genLabel('todo_item_title', 'Low');
     const priority_med_label=  genLabel('todo_item_title', 'Medium');
     const priority_high_label =  genLabel('todo_item_title', 'High');
@@ -125,10 +125,10 @@ const genEditTodoForm = (todo_item) => {
         editPriority_high.checked = true;
     }
 
-    const editTitleLabel = genLabel('todo_edit_title', 'Title');
-    const editDescLabel =  genLabel('todo_edit_desc', 'Description');
-    const editDueDateLabel =  genLabel('todo_edit_duedate', 'Due Date');
-    const editPriorityLabel =  genLabel('todo_edit_priority', 'Priority');
+    const editTitleLabel = genLabel('todo_edit_title', 'Title: ');
+    const editDescLabel =  genLabel('todo_edit_desc', 'Description: ');
+    const editDueDateLabel =  genLabel('todo_edit_duedate', 'Due Date: ');
+    const editPriorityLabel =  genLabel('todo_edit_priority', 'Priority: ');
     const editPriority_low_label =  genLabel('todo_edit_title', 'Low');
     const editPriority_med_label=  genLabel('todo_edit_title', 'Medium');
     const editPriority_high_label =  genLabel('todo_edit_title', 'High');
@@ -152,11 +152,11 @@ const genEditTodoForm = (todo_item) => {
         genlineBreak(),
         editPriorityLabel,
         genlineBreak(),
-        editPriority_low_label, editPriority_low,
+        editPriority_low, editPriority_low_label,
         genlineBreak(),
-        editPriority_med_label, editPriority_med,
+        editPriority_med, editPriority_med_label,
         genlineBreak(),
-        editPriority_high_label, editPriority_high,
+        editPriority_high, editPriority_high_label,
         genlineBreak(),
         editDescLabel, genlineBreak(), editDesc,
         genlineBreak(),
