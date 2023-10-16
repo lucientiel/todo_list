@@ -187,11 +187,11 @@ const genCompletedItemDisplay = (todo_item) => {
 
     const displayDate = document.createElement('div');
     displayDate.className = 'display_date';
-    displayDate.innerText = `Due on: ${todo_item.dueDate}`;
+    displayDate.innerText = `Dued on: ${todo_item.dueDate}`;
 
     const displayCompletedDate = document.createElement('div');
     displayCompletedDate.className = 'display_completedDate';
-    displayCompletedDate.innerText = `Completed on: ${todo_item.completedDate}`
+    displayCompletedDate.innerText = `Completed on: ${getCurrItem(getCurrItemIndex(todo_item)).completedDate.split('T')[0]}`
 
     const displayPriority = document.createElement('div');
     displayPriority.className = 'display_priority';
