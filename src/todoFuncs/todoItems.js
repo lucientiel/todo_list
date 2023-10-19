@@ -78,10 +78,8 @@ const parseDateYMD = (date) => {
 const genOverDueDays = (todo_item) => {
     const parsedDueDate = parseDateYMD(todo_item.dueDate);
     const dueDate = new Date(parsedDueDate[0], parsedDueDate[1], parsedDueDate[2], 23, 59, 59);
-    // dueDate.setHours(23, 59, 59); // set due date time to 11:59:59 pm of the due date
     const currDate = new Date();
     const overDueDays = Math.floor((dueDate - currDate) / 86400000)
-    // if (overDueDays == -1)
     console.log(parsedDueDate, dueDate, currDate, overDueDays);
 
     return overDueDays
@@ -128,7 +126,6 @@ const genitemDisplay = (todo_item) => {
         displayEditedDate.innerText = `Edited on: ${todo_item.editedDate.split('T')[0]}`;
         displayDatesContainer.appendChild(displayEditedDate);
     }
-    // genOverDueDays(todo_item);
 
     const displayPriority = document.createElement('div');
     displayPriority.className = 'display_priority';
@@ -273,7 +270,6 @@ const todoEditSaveClick = (todo_item) => { // what happens when user clicks on s
         const currtodoIdx = getCurrItemIndex(todo_item);
         editItemInDirectory(formVals, currtodoIdx);
         clearncloseDisplayModal();
-        // displayitemsInList();
         savedSortDisplayItemsInList();
     })
 }
@@ -282,8 +278,6 @@ const todoCompleteClick = (todo_item) => { //when the user clicks complete on a 
     const todoItemCompleteButton = document.getElementById(`complete_${todo_item.title}_${todo_item.id}`);
     todoItemCompleteButton.addEventListener('click', () => {
         todoItemCompleteButton.parentElement.remove();
-        // todo_item.complete = true;
-        // todo_item.completedDate = new Date();
         setItemComplete(todo_item);
 
         const completedList = document.getElementById('listing_complete_elem');
@@ -352,7 +346,6 @@ const displayitemsInList = () => {
     clearAllItemInDisplay();
 
     const listingSectHead = document.getElementById('listing_head');
-    //listingSectHead.innerText =  getCurrProjectDirectoryVal() + ' ' + `${getCurrProjectDirectoryLength(currProjectDirectory)}/200` + ' Tasks';
     listingSectHead.innerText = '';
     listingSectHead.appendChild(listingHeadDiv());
     listingSectHead.appendChild(sortingOptions()); // add the sorting select option into listing head
