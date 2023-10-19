@@ -2,6 +2,7 @@ import { setCurrProjectDirectoryVal, displayitemsInList, formSubmitClick } from 
 import { addNewDirectorytoLocalStorage, checkProjectNameUniqueness} from "../storage/localStorageFuncs";
 import { genTodoItemForm } from "../todoFuncs/todoForms";
 import { deleteProjectButton, deleteProjectButtonClick } from "./projectDelete";
+import { escapeInputStr } from "../sanitization/escapeInputs";
 
 
 const genProjectClick = () => { // create a new project directory, add it to the project listing object and call addtoProjectNavList to display on page navlist
@@ -9,16 +10,17 @@ const genProjectClick = () => { // create a new project directory, add it to the
     projectNameForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const formVals = new FormData(projectNameForm);
-        if (checkProjectNameUniqueness(formVals.get('project_name_input')) == false) {
+        const escapedProjectNameFormVal = escapeInputStr(formVals.get('project_name_input'));
+        if (checkProjectNameUniqueness(escapedProjectNameFormVal) == false) {
             alert('Name already used, try a different one!')
         }
-        else if (formVals.get('project_name_input').length < 1) {
+        else if (escapedProjectNameFormVal.length < 1) {
             alert('A name of 1 character or greater is required to open a project.')
         }
         else {
-                addNewDirectorytoLocalStorage(formVals.get('project_name_input'));
+                addNewDirectorytoLocalStorage(escapedProjectNameFormVal);
                 console.log('LOCAL STORAGE', localStorage);
-                addtoProjectNavList(formVals.get('project_name_input'), formVals.get('project_name_input'));
+                addtoProjectNavList(escapedProjectNameFormVal, escapedProjectNameFormVal);
         }
         projectNameForm.reset()
     })
