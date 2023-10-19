@@ -9,6 +9,7 @@ import { displayAllUpcomingTasks } from "../upcoming/upcomingTasks";
 import { selectUpcomingDuedTasksDaysOptionClick } from "../upcoming/upcomingSelectEvents";
 import { deleteItemfromDirectory, editItemInDirectory, getCurrItem, getCurrItemIndex, getCurrProjectDirectoryLength, insertItemToList, setItemComplete } from "../storage/localStorageFuncs";
 import { changeBorderColorsByDueDate } from "../colors/dateColors";
+import { escapeInputStr } from "../sanitization/escapeInputs";
 let currProjectDirectory;
 
 const setCurrProjectDirectoryVal = (someValue) => {
@@ -56,8 +57,8 @@ const formSubmitClick = () => {
         else {
             const formVals = new FormData(todoItemForm);
             const newTodoItem = todoItem(
-                formVals.get('todo_item_title'),
-                formVals.get('todo_item_desc'),
+                escapeInputStr(formVals.get('todo_item_title')),
+                escapeInputStr(formVals.get('todo_item_desc')),
                 formVals.get('todo_item_duedate'),
                 formVals.get('todo_item_priority')
             );

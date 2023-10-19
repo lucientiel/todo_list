@@ -1,4 +1,5 @@
 import { currProjectDirectory } from "../todoFuncs/todoItems";
+import { escapeInputStr } from "../sanitization/escapeInputs";
 
 const parseCurrentDirectory = () => {
     const currDirectoryList = localStorage.getItem(currProjectDirectory);
@@ -87,8 +88,8 @@ const editItemInDirectory = (form_val, item_idx) => {
     const parsedCurrDirectoryList = parseCurrentDirectory();
     console.log('parsedCurrDirectoryList', parsedCurrDirectoryList, item_idx, parsedCurrDirectoryList[item_idx])
 
-    parsedCurrDirectoryList[item_idx].title = form_val.get('todo_edit_title');
-    parsedCurrDirectoryList[item_idx].description = form_val.get('todo_edit_desc');
+    parsedCurrDirectoryList[item_idx].title = escapeInputStr(form_val.get('todo_edit_title'));
+    parsedCurrDirectoryList[item_idx].description = escapeInputStr(form_val.get('todo_edit_desc'));
     parsedCurrDirectoryList[item_idx].dueDate = form_val.get('todo_edit_duedate');
     parsedCurrDirectoryList[item_idx].priority = form_val.get('todo_edit_priority');
     parsedCurrDirectoryList[item_idx].editedDate = new Date();
