@@ -67,3 +67,16 @@ Clicking on 'Create Item' should make a new task show up under the task list wit
 * Click on the newly created project within the Project Directory list to enter its directory. 
 * Redo the same unit tests until this point for the new project directory to check if it functions properly.
 * Create two more new tasks for a project directory of your choice, and then click on the 'Delete Project' button next to the project's name on the Project Directory list. Check that you are redirected to the Upcoming Tasks page and that deleted project's name no longer shows up under the Project Directory list and its tasks no longer shows up in the upcoming tasks either. 
+
+Further unit tests will be added when new features are implemented. 
+
+## Potential future features
+
+Potential future features to implement include:
+* Responsivie interface design for mobile and different browser sizes
+* Deploy to GitPages
+* Edit Project names
+
+
+## Other resources
+Background iamge is created by <a href="https://unsplash.com/@giamboscaro">Giammarco Boscaro</a> on <a href="https://unsplash.com/">Unsplash</a>
