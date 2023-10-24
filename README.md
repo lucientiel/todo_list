@@ -55,8 +55,8 @@ What to do in order to check that the application is working as intended:
     * Click on the date input's calender and put in a date set to the current date of usage.
     * Select the low priority option
     * Enter some text of your preference into the notes text area.
-Clicking on 'Create Item' should make a new task show up under the task list with a green background with all the same values as the ones that were submitted on the task creation form along with a creation date reflecting the current date. 
-* Create another task for 'project_1' by following the same instruction, but select the high priority. Clicking on 'Create item' should make a new task show up under the task list with a red background with all the same vaues as the ones that were submitted on the task creation form a;pmg wtoj a creatopm date reflecting the current date. 
+Clicking on 'Create Task' should make a new task show up under the task list with a green background with all the same values as the ones that were submitted on the task creation form along with a creation date reflecting the current date. 
+* Create another task for 'project_1' by following the same instruction, but select the high priority. Clicking on 'Create Task' should make a new task show up under the task list with a red background with all the same vaues as the ones that were submitted on the task creation form a;pmg wtoj a creatopm date reflecting the current date. 
 * Exit the project directory to check that the two newly created task also shows up under the upcoming list, then renter the project to check that the tasks persisted in the directory as well.
 * Click on 'Edit Task' on the low priority task to check that a edit form shows up in a modal with all of the current task in the input areas. Clicking 'Cancel Edit' should exit the modal without saving any changes.
 * Within the edit task form modal, change the title, due date, and description to values of your choice, and set the priority to medium. Clicking 'Save Edit' should exit the modal and update the low priority task to the newly saved values and change its background color to orange. 

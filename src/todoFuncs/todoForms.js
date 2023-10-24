@@ -60,7 +60,7 @@ const genTodoItemForm = () => {
     submitButton.type = 'submit';
     submitButton.id = 'todo_item_submit';
     submitButton.setAttribute('form', 'todo_item_form');
-    submitButton.innerText = 'Create Item';
+    submitButton.innerText = 'Create Task';
 
 
     createItemForm.append(
