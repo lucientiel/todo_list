@@ -74,8 +74,7 @@ Further unit tests will be added when new features are implemented.
 
 Potential future features to implement include:
 * Responsivie interface design for mobile and different browser sizes
-* Deploy to GitPages
-* Edit Project names
+* Rename Project Names
 
 
 ## Other resources
